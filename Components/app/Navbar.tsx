@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useContext, useState } from "react"
 import { UserContext } from "../../lib/context"
-// import { SignOutButton } from "../pages/LoginForm"
+import { SignOutButton } from "../../pages/LoginForm"
 
 // import usePlacesAutocomplete from "use-places-autocomplete"
 
@@ -93,8 +93,7 @@ export default function Navbar ({
             <DrawMapButton />
           </div>
           <div>
-            {/* <SignOutButton /> */}
-            <button>TODO: SingOutButton</button>
+            <SignOutButton />
           </div>
         </div>
       </>
