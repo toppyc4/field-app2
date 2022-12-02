@@ -5,89 +5,11 @@ import { Post } from "../../utils/types"
 
 
 
-const Sidebar = () => {
+const Sidebar = ({childclick, posts}: {childclick: any; posts: Post[]} ): JSX.Element => {
   const router = useRouter()
   // const { query } = useRouter()
   const [elRefs, setElRefs] = useState([])
-  const posts: Post[] = [{
-    address: {
-      coordinate: {
-          lat: 13.719523901088266,
-          lng: 100.551340623518,
-      },
-      country: 'Thailand',
-      district: 'Thung Maha Mek',
-      locality: 'Sathon',
-      province: 'Bangkok',
-      streetAddress1: '60 Chuea Phloeng 2 Alley ',
-      streetAddress2: '',
-      zipCode: '10120',
-  },
-  content: 'refreshing garden in Sathon',
-  createdAt: 'November 14, 2022 at 1:12:44 PM UTC+7',
-  phone: '909-106-3333',
-  photoUrl: null,
-  price: '1,000,000 bath',
-  published: true,
-  slug: 'baan-suan-sathon',
-  title: 'Baan-Suan-Sathon',
-  typeOfService: 'Vacant Land',
-  uid: '49n825lVYESbjg7mtAqBO3XStwZ2',
-  updateAt: 'November 14, 2022 at 1:12:44 PM UTC+7',
-  username: 'joffrey',
-  }, {
-    address: {
-      coordinate: {
-          lat: 13.719523901088266,
-          lng: 100.551340623518,
-      },
-      country: 'Thailand',
-      district: 'Thung Maha Mek',
-      locality: 'Sathon',
-      province: 'Bangkok',
-      streetAddress1: '60 Chuea Phloeng 2 Alley ',
-      streetAddress2: '',
-      zipCode: '10120',
-  },
-  content: 'refreshing garden in Sathon',
-  createdAt: 'November 14, 2022 at 1:12:44 PM UTC+7',
-  phone: '909-106-3333',
-  photoUrl: null,
-  price: '1,000,000 bath',
-  published: true,
-  slug: 'baan-suan-sathon',
-  title: 'Baan-Suan-Sathon',
-  typeOfService: 'Vacant Land',
-  uid: '49n825lVYESbjg7mtAqBO3XStwZ2',
-  updateAt: 'November 14, 2022 at 1:12:44 PM UTC+7',
-  username: 'joffrey',
-  }, {
-    address: {
-      coordinate: {
-          lat: 13.719523901088266,
-          lng: 100.551340623518,
-      },
-      country: 'Thailand',
-      district: 'Thung Maha Mek',
-      locality: 'Sathon',
-      province: 'Bangkok',
-      streetAddress1: '60 Chuea Phloeng 2 Alley ',
-      streetAddress2: '',
-      zipCode: '10120',
-  },
-  content: 'refreshing garden in Sathon',
-  createdAt: 'November 14, 2022 at 1:12:44 PM UTC+7',
-  phone: '909-106-3333',
-  photoUrl: null,
-  price: '1,000,000 bath',
-  published: true,
-  slug: 'baan-suan-sathon',
-  title: 'Baan-Suan-Sathon',
-  typeOfService: 'Vacant Land',
-  uid: '49n825lVYESbjg7mtAqBO3XStwZ2',
-  updateAt: 'November 14, 2022 at 1:12:44 PM UTC+7',
-  username: 'joffrey',
-  }]
+  
   // const {
   //   ready,
   //   value,
@@ -154,6 +76,7 @@ const Sidebar = () => {
   //   setElRefs(refs)
   // }, [posts])
 
+  console.log('posts: ', posts)
   return (
     <div className='h-[92vh] pt-4 px-4 bg-slate-100'>
       <div className=''>
@@ -306,7 +229,7 @@ const Sidebar = () => {
       </div>
 
       <div className='grid-list-items'>
-        {posts?.map((post, i) => (
+        {posts.map((post, i) => (
           <div className=' m-2 ' ref={elRefs[i]} key={i}>
             <SidebarItem
               key={i}

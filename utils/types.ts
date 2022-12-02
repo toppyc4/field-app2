@@ -1,3 +1,5 @@
+export type TypeOfService = 'Vacant Land' | 'Real Estate' | 'Property' | 'Service';
+
 export type Post = {
     address: {
         coordinate: {
@@ -20,7 +22,7 @@ export type Post = {
     published: boolean;
     slug: string;
     title: string;
-    typeOfService: 'Vacant Land' | 'Real Estate' | 'Property' | 'Service';
+    typeOfService: TypeOfService;
     uid: string;
     updateAt: any;
     username: string;
