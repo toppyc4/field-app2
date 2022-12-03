@@ -8,6 +8,7 @@
   "dependencies": {
     "@reach/combobox": "^0.18.0",
     "@react-google-maps/api": "^2.17.0",
+    "@types/google-map-react": "^2.1.7",
     "@types/lodash.debounce": "^4.0.7",
     "firebase": "^9.14.0",
     "firebase-admin": "^11.3.0",

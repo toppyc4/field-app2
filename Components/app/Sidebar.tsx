@@ -1,11 +1,18 @@
 import React, {useEffect, useState, createRef} from 'react'
 import { useRouter } from "next/router"
 import SidebarItem from "./SidebarItem"
-import { Post } from "../../utils/types"
+import { Post, TypeOfService } from "../../utils/types"
 
 
 
-const Sidebar = ({childclick, posts}: {childclick: any; posts: Post[]} ): JSX.Element => {
+const Sidebar = ({ posts, childClick, setCoordinates, drawingMap, province, type}: {
+   posts: Post[] | null; 
+   childClick: any; 
+   setCoordinates: (coordinates: {lat: number, lng: number}) => void; 
+   drawingMap: boolean; 
+   province: any; 
+   type: TypeOfService | null
+  }): JSX.Element => {
   const router = useRouter()
   // const { query } = useRouter()
   const [elRefs, setElRefs] = useState([])
@@ -68,13 +75,14 @@ const Sidebar = ({childclick, posts}: {childclick: any; posts: Post[]} ): JSX.El
   //   router.push(`/main/${province.province}/${_type}`)
   // }
 
-  // useEffect(() => {
-  //   const refs = Array(posts?.length)
-  //     .fill()
-  //     .map((_, i) => elRefs[i] || createRef())
+  useEffect(() => {
+    const refs = Array(posts?.length)
+      //@ts-ignore going to ignore .fill() for now Let see how MeetMeInTheMiddle did it
+      .fill()
+      .map((_, i) => elRefs[i] || createRef())
 
-  //   setElRefs(refs)
-  // }, [posts])
+    setElRefs(refs)
+  }, [posts])
 
   console.log('posts: ', posts)
   return (
@@ -84,7 +92,7 @@ const Sidebar = ({childclick, posts}: {childclick: any; posts: Post[]} ): JSX.El
           <h1 className='text-3xl font-bold'>
             {/* {posts && posts.length != 0 ? posts[0].address.province : "Area"} */}
             {/* provinceTitle() */}
-            {/* {province ? province?.province + " / " + type : "Main"} */}
+            {province ? province?.province + " / " + type : "Main"}
             Bangkok
           </h1>
           <span className='my-auto ml-auto mr-4'>
@@ -185,6 +193,7 @@ const Sidebar = ({childclick, posts}: {childclick: any; posts: Post[]} ): JSX.El
               <option value='Uttaradit'>Uttaradit (อุตรดิตถ์)</option>
               <option value='Yala'>Yala (ยะลา)</option>
             </select>
+
             <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center pt-6 px-2 text-gray-700'>
               <svg
                 className='fill-current h-4 w-4'
@@ -229,12 +238,12 @@ const Sidebar = ({childclick, posts}: {childclick: any; posts: Post[]} ): JSX.El
       </div>
 
       <div className='grid-list-items'>
-        {posts.map((post, i) => (
-          <div className=' m-2 ' ref={elRefs[i]} key={i}>
+        {posts?.map((post, i) => (
+          <div className='m-2' ref={elRefs[i]} key={i}>
             <SidebarItem
               key={i}
               post={post}
-              // selected={Number(childClicked) === i}
+              selected={Number(childClick) === i}
               refProp={elRefs[i]}
             />
           </div>

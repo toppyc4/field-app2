@@ -18,6 +18,8 @@ import toast from "react-hot-toast"
 export default function LoginForm() {
   const router = useRouter()
   const { user, username } = useContext(UserContext)
+  console.log('user: ', user)
+  console.log('username: ', username)
 
   if (user && username) {
     router.push("/main")
@@ -25,7 +27,7 @@ export default function LoginForm() {
 
   return (
     <main className='h-[100vh]'>
-      <UsernameForm />
+      {user && !username && <UsernameForm />}
     </main>
   )
 }

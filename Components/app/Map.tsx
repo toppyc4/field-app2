@@ -14,7 +14,7 @@ const Map = ({
   // setBounds,
   drawingMap,
   setChildClick,
-}: {posts: Post[]; coordinates: {lat: number, lng: number}; setCoordinates: (coordinates: {lat: number, lng: number}) => void; zoomLv: number; setZoomLv: (zoomLv: number) => void; drawingMap: boolean; setChildClick: (childClick: any) => void; }) => {
+}: {posts: Post[] | null; coordinates: {lat: number, lng: number}; setCoordinates: (coordinates: {lat: number, lng: number}) => void; zoomLv: number; setZoomLv: (zoomLv: number) => void; drawingMap: boolean; setChildClick: (childClick: any) => void; }) => {
   const [map, setMap] = useState(null)
   // const [zoomLv, setZoomLv] = useState(11)
 

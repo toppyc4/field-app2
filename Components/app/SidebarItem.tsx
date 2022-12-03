@@ -1,19 +1,27 @@
 // import React, { useContext, useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image";
 import { Post } from "../../utils/types"
 
-const SidebarItem = ({ post, refProp }: {post: Post; refProp: any }) => {
-//   if (selected) {
-//     refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" })
-//   }
+const SidebarItem = ({ post, refProp, selected }: {post: Post; refProp: any; selected: any; }) => {
+  if (selected) {
+    refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
 
   return (
-    <div className='max-w-sm max-h-[70vh] overflow-hidden shadow-lg'>
-      <img
-        className='w-full max-w-sm max-h-[20vh] bg-white'
-        src={post.photoUrl ? `${post.photoUrl}` : "/img/location-marker.svg"}
-        alt=''
-      />
+    <div className='max-w-sm max-h-[100vh] my-[0.5rem] bg-neutral-100 overflow-hidden shadow-lg'>
+      <div className='relative w-full min-h-[20vh] bg-white'>
+        {/* TODO: Click on photo and scroll into view instead of link */}
+        <Link href={`/${post.username}`}>
+          <Image
+            className=' object-contain'
+            src={post.photoUrl ? `${post.photoUrl}` : "/Markers/location-blue-marker.svg"}
+            layout='fill'
+            alt={`${post.title}`}
+          />
+        </Link>
+      </div>
+      
       <div className='px-6 py-2'>
         <header className='flex flex-wrap'>
           <p className='font-bold uppercase text-md max-h-20 overflow-hidden mb-2'>
@@ -29,23 +37,27 @@ const SidebarItem = ({ post, refProp }: {post: Post; refProp: any }) => {
           {post.content}
         </p> */}
         <p className='flex my-2 p-2 bg-gray-300 rounded-lg'>
-          <img
-            src='/img/location-marker.svg'
-            className='mt-1 mr-1 w-[25px] h-[25px]'
-          />
+          <div className="relative w-[25px] h-[25px] mt-0.5 mr-0.5">
 
-          {`${post.address.district}, ${post.address.locality},
-          ${post.address.province} ${post.address.zipCode}`}
+          <Image
+            src='/Markers/location-blue-marker.svg'
+            className=''
+            alt='location-icon'
+            layout="fill"
+          />
+          </div>
+
+          {`${post.address.district}, ${post.address.locality}`}
           {/* <b className='text-md'>Address: </b>
           {`${post.address.streetAddress} ${post.address.district} ${post.address.locality} ${post.address.province} ${post.address.country} ${post.address.zipCode}`} */}
         </p>
         <div className='flex'>
           <Link href={`/${post.username}`} className='flex items-center mt-2'>
-            {/* <p className=' flex text-sm font-bold text-gray-900 leading-none'> */}
+          <p className=' flex text-sm font-bold text-gray-900 leading-none'>
             <button className='bg-lime-500 hover:bg-lime-400 text-white font-bold py-1 px-2 border-solid border-b-4 border-lime-700 hover:border-lime-500 rounded'>
               @ {post.username}
             </button>
-            {/* </p> */}
+            </p>
           </Link>
           <span className='inline-block bg-gray-200 rounded-full ml-auto p-2 text-sm font-semibold text-gray-700'>
             📞: {post.phone}

@@ -88,3 +88,21 @@ export function postToJSON(doc: any) {
     updatedAt: data?.updatedAt.toMillis() || 0,
   }
 }
+
+/**
+ * Gets a provinces/{province} document with username
+ * @param {string} username
+ */
+ export async function getPostsWithProvince(province: string) {
+  // userRef = collection("user")
+  // const query = userRef.where("username", "==", province).limit(1)
+
+  const q = query(
+    collection(firestore, "provinces"),
+    where("province", "==", province),
+    limit(1)
+  )
+
+  const provinceDocs = (await getDocs(q)).docs[0]
+  return provinceDocs
+}

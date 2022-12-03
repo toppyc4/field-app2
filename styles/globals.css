@@ -17,7 +17,8 @@
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         height: 73vh;
-        margin-top: 0.5rem;
+        margin-top: 1rem;
+        background-color: azure;
         overflow: auto;
     }
 
@@ -25,6 +26,22 @@
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 1rem;
+    }
+
+    .white-btn {
+        background-color: #fdfdfd;
+        /* border: none; */
+        color: #08090a;
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        text-decoration: none;
+        font-family: 'Noto Sans', sans-serif;
+        font-weight: bold;
+        border-radius: 0.25rem;
+        cursor: pointer;
     }
 
     main {

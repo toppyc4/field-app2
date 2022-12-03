@@ -72,7 +72,6 @@ export default function Navbar ({
             href={`/${username}`}
             className='flex bg-lime-500 hover:bg-lime-400 text-white my-auto mr-3 p-1 max-h-[50px] border-solid border-b-4 border-lime-700 hover:border-lime-500 rounded overflow-hidden'
           >
-            <div>
               <Image
                 src={user?.photoURL || "/img/question-mark-profile.jpg"}
                 width={50}
@@ -81,10 +80,9 @@ export default function Navbar ({
                 className='mr-2 w-[56px] h-[56px] self-center cursor-pointer rounded-full'
                 referrerPolicy='no-referrer'
               />
-              {/* <p className='my-auto text-md self-center'>
-                {username || "unknown"}
-              </p> */}
-            </div>
+              <p className='my-auto text-md self-center'>
+                {username !== null ? username : "unknown"}
+              </p>
           </Link>
           <div className='mr-3'>
             <CreatePostButton />
