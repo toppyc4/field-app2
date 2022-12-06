@@ -61,7 +61,7 @@ export default function HomeByProvinceAndType({ posts, province, type }: {posts:
         setDrawingMap={setDrawingMap}
         setCoordinates={setCoordinates}
       />
-      <main className='h-[90vh] flex'>
+      <main className='h-[92vh] flex'>
         <div className='w-[40%]'>
           <Sidebar
             posts={posts}

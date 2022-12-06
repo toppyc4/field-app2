@@ -92,8 +92,7 @@ const Sidebar = ({ posts, childClick, setCoordinates, drawingMap, province, type
           <h1 className='text-3xl font-bold'>
             {/* {posts && posts.length != 0 ? posts[0].address.province : "Area"} */}
             {/* provinceTitle() */}
-            {province ? province?.province + " / " + type : "Main"}
-            Bangkok
+            { province ? type ? province?.province + " / " + type : province?.province + " / type " : "Main" }
           </h1>
           <span className='my-auto ml-auto mr-4'>
             - - - {posts?.length || 0} result(s) founded{" "}
@@ -108,8 +107,9 @@ const Sidebar = ({ posts, childClick, setCoordinates, drawingMap, province, type
             <select
               // onChange={handleProvinceSelect}
               className='block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight cursor-pointer focus:outline-none focus:shadow-outline'
+              defaultValue={'none'}
             >
-              <option value='none' selected disabled hidden>
+              <option value='none' disabled hidden>
                 Province (จังหวัด)
               </option>
               <option value='Amnat Charoen'>Amnat Charoen (อำนาจเจริญ)</option>
@@ -209,11 +209,10 @@ const Sidebar = ({ posts, childClick, setCoordinates, drawingMap, province, type
             <select
               // onChange={handleTypeSelect}
               className='block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight cursor-pointer focus:outline-none focus:shadow-outline '
-              disabled={ true
-                // !province && posts?.length == 0
-              }
+              disabled={ !province && posts?.length == 0 }
+              defaultValue={'none'}
             >
-              <option value='none' selected disabled hidden>
+              <option value='none' disabled hidden>
                 type (ประเภท)
               </option>
               <option value='all'>All (ทั้งหมด)</option>

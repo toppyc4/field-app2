@@ -42,7 +42,7 @@ const Home = (): JSX.Element => {
         drawingMap={drawingMap}
         setDrawingMap={setDrawingMap}
       />
-      <main className='h-[90vh] flex'>
+      <main className='h-[92vh] flex'>
         <div className='w-[40%]'>
           <Sidebar
             posts={posts}

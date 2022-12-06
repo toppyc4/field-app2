@@ -36,7 +36,7 @@ const SidebarItem = ({ post, refProp, selected }: {post: Post; refProp: any; sel
         {/* <p className='my-2 p-2 max-h-20 overflow-auto bg-white text-slate-900 text-base'>
           {post.content}
         </p> */}
-        <p className='flex my-2 p-2 bg-gray-300 rounded-lg'>
+        <div className='flex my-2 p-2 bg-gray-300 rounded-lg'>
           <div className="relative w-[25px] h-[25px] mt-0.5 mr-0.5">
 
           <Image
@@ -50,7 +50,7 @@ const SidebarItem = ({ post, refProp, selected }: {post: Post; refProp: any; sel
           {`${post.address.district}, ${post.address.locality}`}
           {/* <b className='text-md'>Address: </b>
           {`${post.address.streetAddress} ${post.address.district} ${post.address.locality} ${post.address.province} ${post.address.country} ${post.address.zipCode}`} */}
-        </p>
+        </div>
         <div className='flex'>
           <Link href={`/${post.username}`} className='flex items-center mt-2'>
           <p className=' flex text-sm font-bold text-gray-900 leading-none'>

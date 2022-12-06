@@ -108,7 +108,7 @@ export default function HomeByProvince ({ posts, province } : {posts: Post[] | n
   return (
     <>
         <Navbar setCoordinates={setCoordinates} drawingMap={drawingMap} setDrawingMap={setDrawingMap}/>
-        <main className='h-[90vh] flex'>
+        <main className='h-[93vh] flex'>
             <div className='w-[40%]'>
                 <Sidebar 
                   posts={posts}
