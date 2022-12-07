@@ -4,13 +4,13 @@ import Image from "next/image"
 import DrawingMap from "./DrawingMap"
 // import GoogleMapReact from "google-map-react"
 import { useLoadScript, GoogleMap, MarkerF } from "@react-google-maps/api"
-import { Post, TypeOfService } from "../../utils/types"
+import { Post, ServicesType, Address } from "../../utils/types"
 import GoogleMapReact from "google-map-react"
 
 const Map = ({
   posts,
-  coordinates,
-  setCoordinates,
+  address,
+  setAddress,
   zoomLv,
   setZoomLv,
   // setBounds,
@@ -18,8 +18,8 @@ const Map = ({
   setChildClick,
 }: {
   posts: Post[] | null
-  coordinates: { lat: number; lng: number }
-  setCoordinates: (coordinates: { lat: number; lng: number }) => void
+  address: Address
+  setAddress: (address: Address) => void
   zoomLv: number
   setZoomLv: (zoomLv: number) => void
   drawingMap: boolean
@@ -58,10 +58,10 @@ const Map = ({
   //   )
   //   setZoomLv(11)
   // }, [])
-  function iconType(type: TypeOfService) {
-    if (type === "Vacant Land") {
+  function iconType(type: ServicesType) {
+    if (type === "Vacant_Land") {
       return "/Markers/solid/field-stack-marker.svg"
-    } else if (type === "Real Estate") {
+    } else if (type === "Real_Estate") {
       return "/Markers/solid/home-marker.svg"
     } else if (type === "Property") {
       return "/Markers/solid/building-storefront-marker.svg"
@@ -70,21 +70,21 @@ const Map = ({
     }
   }
 
-  function handleClick(position: { lat: number; lng: number }, i: number) {
-    setCoordinates(position)
-    setChildClick(i)
-    // mapRef.current?.panTo(position)
-    setZoomLv(14)
-  }
+  // function handleClick(position: { lat: number; lng: number }, i: number) {
+  //   setAddress(position)
+  //   setChildClick(i)
+  //   // mapRef.current?.panTo(position)
+  //   setZoomLv(14)
+  // }
 
-  console.log("coordinates", coordinates)
+  console.log("address", address)
   console.log("map", map)
   console.log("posts", posts)
   const center = { lat: 13.7563, lng: 100.5018 }
   return (
     <div className='w-full h-full bg-white'>
       {drawingMap ? (
-        <DrawingMap coordinates={coordinates} />
+        <DrawingMap address={address} />
       ) : (
         <div className='w-[100%] h-[100%] bg-black'>
           <GoogleMapReact
@@ -92,7 +92,7 @@ const Map = ({
               key: "AIzaSyCI_-E-iNpc2Lp2L9cjonh2p9MX-bcp85g",
             }}
             defaultCenter={{ lat: 13.7563, lng: 100.5018 }}
-            center={coordinates}
+            center={address.coords}
             zoom={13}
           >
             <div

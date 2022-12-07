@@ -2,23 +2,24 @@ import Link from "next/link"
 import Image from "next/image"
 import { useContext, useState } from "react"
 import { UserContext } from "../../lib/context"
-import { SignOutButton } from "../../pages/LoginForm"
+import { SignOutButton } from "../../pages/loginForm"
 
 // import usePlacesAutocomplete from "use-places-autocomplete"
 
 import SearchBox from "./SearchBox"
 import { useRouter } from "next/router"
+import { Address, Coord, Post } from "../../utils/types"
 
 // import { Autocomplete } from "@react-google-maps/api"
 
-export default function Navbar ({ 
-  setCoordinates,
+export default function Navbar({
+  setAddress,
   drawingMap,
-  setDrawingMap 
+  setDrawingMap,
 }: {
-  setCoordinates: (coordinates: {lat: number; lng: number;}) => void;
-  drawingMap: boolean;
-  setDrawingMap: (drawingMap: boolean) => void;
+  setAddress: (address: Address) => void
+  drawingMap: boolean
+  setDrawingMap: (drawingMap: boolean) => void
 }): JSX.Element {
   const { user, username } = useContext(UserContext)
 
@@ -56,7 +57,15 @@ export default function Navbar ({
       </Link>
 
       <div className='ml-auto mr-3 inline-block relative w-64'>
-        <SearchBox setCoordinates={setCoordinates} />
+        {/* <SearchBox
+          value={address}
+          setValue={(value) => {
+            const newAddresses = [...addresses]
+            newAddresses[i] = value
+            setAddresses(newAddresses)
+          }}
+          placeholder='Address'
+        /> */}
         {/* <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
           <input
             className='appearance-none block w-full my-2 bg-white text-gray-700  border-gray-400  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
@@ -72,17 +81,17 @@ export default function Navbar ({
             href={`/${username}`}
             className='flex bg-lime-500 hover:bg-lime-400 text-white my-auto mr-3 p-1 max-h-[50px] border-solid border-b-4 border-lime-700 hover:border-lime-500 rounded overflow-hidden'
           >
-              <Image
-                src={user?.photoURL || "/img/question-mark-profile.jpg"}
-                width={50}
-                height={50}
-                alt='user profile picture'
-                className='mr-2 w-[56px] h-[56px] self-center cursor-pointer rounded-full'
-                referrerPolicy='no-referrer'
-              />
-              <p className='my-auto text-md self-center'>
-                {username !== null ? username : "unknown"}
-              </p>
+            <Image
+              src={user?.photoURL || "/img/question-mark-profile.jpg"}
+              width={50}
+              height={50}
+              alt='user profile picture'
+              className='mr-2 w-[56px] h-[56px] self-center cursor-pointer rounded-full'
+              referrerPolicy='no-referrer'
+            />
+            <p className='my-auto text-md self-center'>
+              {username !== null ? username : "unknown"}
+            </p>
           </Link>
           <div className='mr-3'>
             <CreatePostButton />

@@ -1,22 +1,31 @@
-import React, {useEffect, useState, createRef} from 'react'
+import React, { useEffect, useState, createRef } from "react"
 import { useRouter } from "next/router"
 import SidebarItem from "./SidebarItem"
-import { Post, TypeOfService } from "../../utils/types"
+import { Post, ServicesType, Address, Filters } from "../../utils/types"
 
-
-
-const Sidebar = ({ posts, childClick, setCoordinates, drawingMap, province, type}: {
-   posts: Post[] | null; 
-   childClick: any; 
-   setCoordinates: (coordinates: {lat: number, lng: number}) => void; 
-   drawingMap: boolean; 
-   province: any; 
-   type: TypeOfService | null
-  }): JSX.Element => {
+export default function Sidebar({
+  posts,
+  filters,
+  setFilters,
+  childClick,
+  setAddress,
+  drawingMap,
+  province,
+}: // type,
+{
+  posts: Post[] | null
+  filters: Filters
+  setFilters: (filters: Filters) => void
+  childClick: any
+  setAddress: (address: Address) => void
+  drawingMap: boolean
+  province: any
+  // type: ServicesType | null
+}) {
   const router = useRouter()
   // const { query } = useRouter()
   const [elRefs, setElRefs] = useState([])
-  
+
   // const {
   //   ready,
   //   value,
@@ -84,16 +93,12 @@ const Sidebar = ({ posts, childClick, setCoordinates, drawingMap, province, type
     setElRefs(refs)
   }, [posts])
 
-  console.log('posts: ', posts)
+  console.log("posts: ", posts)
   return (
     <div className='h-[92vh] pt-4 px-4 bg-slate-100'>
       <div className=''>
         <div className='flex'>
-          <h1 className='text-3xl font-bold'>
-            {/* {posts && posts.length != 0 ? posts[0].address.province : "Area"} */}
-            {/* provinceTitle() */}
-            { province ? type ? province?.province + " / " + type : province?.province + " / type " : "Main" }
-          </h1>
+          <h1 className='text-3xl font-bold'>{province ? province : "Main"}</h1>
           <span className='my-auto ml-auto mr-4'>
             - - - {posts?.length || 0} result(s) founded{" "}
           </span>
@@ -107,7 +112,7 @@ const Sidebar = ({ posts, childClick, setCoordinates, drawingMap, province, type
             <select
               // onChange={handleProvinceSelect}
               className='block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight cursor-pointer focus:outline-none focus:shadow-outline'
-              defaultValue={'none'}
+              defaultValue={"none"}
             >
               <option value='none' disabled hidden>
                 Province (จังหวัด)
@@ -209,8 +214,8 @@ const Sidebar = ({ posts, childClick, setCoordinates, drawingMap, province, type
             <select
               // onChange={handleTypeSelect}
               className='block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight cursor-pointer focus:outline-none focus:shadow-outline '
-              disabled={ !province && posts?.length == 0 }
-              defaultValue={'none'}
+              disabled={!province && posts?.length == 0}
+              defaultValue={"none"}
             >
               <option value='none' disabled hidden>
                 type (ประเภท)
@@ -263,5 +268,3 @@ const Sidebar = ({ posts, childClick, setCoordinates, drawingMap, province, type
     </div>
   )
 }
-
-export default Sidebar
