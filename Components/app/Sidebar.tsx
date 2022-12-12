@@ -1,7 +1,13 @@
 import React, { useEffect, useState, createRef } from "react"
 import { useRouter } from "next/router"
 import SidebarItem from "./SidebarItem"
-import { Post, ServicesType, Address, Filters } from "../../utils/types"
+import Filters from "./Filters"
+import {
+  Post,
+  ServicesType,
+  Address,
+  Filters as FiltersType,
+} from "../../utils/types"
 
 export default function Sidebar({
   posts,
@@ -14,8 +20,8 @@ export default function Sidebar({
 }: // type,
 {
   posts: Post[] | null
-  filters: Filters
-  setFilters: (filters: Filters) => void
+  filters: FiltersType
+  setFilters: (filters: FiltersType) => void
   childClick: any
   setAddress: (address: Address) => void
   drawingMap: boolean
@@ -211,9 +217,9 @@ export default function Sidebar({
           </div>
           <div className='inline-block relative w-64'>
             <label className='font-medium'> type of service: </label>
-            <select
+            {/* <select
               // onChange={handleTypeSelect}
-              className='block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight cursor-pointer focus:outline-none focus:shadow-outline '
+              className='block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight cursor-pointer focus:outline-none focus:shadow-outline'
               disabled={!province && posts?.length == 0}
               defaultValue={"none"}
             >
@@ -227,7 +233,8 @@ export default function Sidebar({
                 Property (สิ่งปลูกสร้างพร้อมที่ดิน)
               </option>
               <option value='Service'>Service (บริการ)</option>
-            </select>
+            </select> */}
+            <Filters filters={filters} setFilters={setFilters} />
             <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center pt-6 px-2 text-gray-700'>
               <svg
                 className='fill-current h-4 w-4'

@@ -42,13 +42,13 @@ const Map = ({
     // (map) => (mapRef.current = map),
     []
   )
-  const { isLoaded } = useLoadScript({
-    // @ts-ignore
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-    libraries: ["places", "drawing", "geometry"],
-  })
+  // const { isLoaded } = useLoadScript({
+  //   // @ts-ignore
+  //   googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+  //   libraries: ["places", "drawing", "geometry"],
+  // })
 
-  if (!isLoaded) return <div>Loading . . . </div>
+  // if (!isLoaded) return <div>Loading . . . </div>
 
   // useEffect(() => {
   //   navigator.geolocation.getCurrentPosition(

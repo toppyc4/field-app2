@@ -203,3 +203,44 @@ export type Post = {
   updateAt: any
   username: string
 }
+
+export const typesMap: {
+  [key: string]: { icon: string; light: string; dark: string; type: string }
+} = {
+  Vacant_Land: {
+    icon: "/icon/solid/solid-field-stack.svg",
+    light: "#0f172a",
+    dark: "#f8fafc",
+    type: "Vacant Land",
+  },
+  House: {
+    icon: "/icon/solid/solid-home.svg",
+    light: "#0f172a",
+    dark: "#f8fafc",
+    type: "House",
+  },
+  Property: {
+    icon: "/icon/solid/solid-property.svg",
+    light: "#0f172a",
+    dark: "#f8fafc",
+    type: "Property",
+  },
+  Condo: {
+    icon: "/icon/solid/solid-condo.svg",
+    light: "#0f172a",
+    dark: "#f8fafc",
+    type: "Condomidium",
+  },
+  Product: {
+    icon: "/icon/solid/solid-truck.svg",
+    light: "#0f172a",
+    dark: "#f8fafc",
+    type: "Product",
+  },
+  Service: {
+    icon: "/icon/solid/solid-service.svg",
+    light: "#0f172a",
+    dark: "#f8fafc",
+    type: "Service",
+  },
+}

@@ -1,4 +1,4 @@
-import { useLoadScript } from "@react-google-maps/api"
+// import { useLoadScript } from "@react-google-maps/api"
 
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
@@ -20,7 +20,6 @@ const Home: NextPage = ({
   const posts = null
   // TODO: Change coordinates to address
   const [address, setAddress] = useState<Address>(initialAddresses)
-
   const [filters, setFilters] = useState<FiltersType>({
     province,
     typeOfService: services,
@@ -52,7 +51,7 @@ const Home: NextPage = ({
       router.query.type !== newQuery.type
     ) {
       router.push({
-        pathname: "/main",
+        pathname: "/main/",
         query: {
           ...router.query,
           address: address.place_id,
@@ -60,15 +59,16 @@ const Home: NextPage = ({
         },
       })
     }
-  })
+  }, [address, filters])
 
   // Load google map script
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyCI_-E-iNpc2Lp2L9cjonh2p9MX-bcp85g",
-    libraries: ["places", "drawing", "geometry"],
-  })
+  // const { isLoaded } = useLoadScript({
+  //   googleMapsApiKey: "AIzaSyCI_-E-iNpc2Lp2L9cjonh2p9MX-bcp85g",
+  //   libraries: ["places", "drawing", "geometry"],
+  // })
 
-  if (!isLoaded) return <div>Loading . . . </div>
+  // if (!isLoaded) return <div>Loading . . . </div>
+
   console.log("Mainposts", posts)
   return (
     <>

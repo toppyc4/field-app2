@@ -1,15 +1,23 @@
 import { useRef, useEffect, useState, useMemo, useCallback } from "react"
 import { getGeocode, getLatLng } from "use-places-autocomplete"
-import { useLoadScript } from "@react-google-maps/api"
+// import { useLoadScript } from "@react-google-maps/api"
 import GoogleMapReact from "google-map-react"
 
-export default function MapMarkerer({ address, miniMapCoor, setMiniMapCoor }: {address: string; miniMapCoor: {lat: number, lng: number}; setMiniMapCoor: (miniMapCoor: {lat: number, lng: number}) => void}) {
+export default function MapMarkerer({
+  address,
+  miniMapCoor,
+  setMiniMapCoor,
+}: {
+  address: string
+  miniMapCoor: { lat: number; lng: number }
+  setMiniMapCoor: (miniMapCoor: { lat: number; lng: number }) => void
+}) {
   // Load google map script
-//   const libraries = ["places", "drawing", "geometry"]
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyCI_-E-iNpc2Lp2L9cjonh2p9MX-bcp85g",
-    libraries: ['places'],
-  })
+  //   const libraries = ["places", "drawing", "geometry"]
+  // const { isLoaded } = useLoadScript({
+  //   googleMapsApiKey: "AIzaSyCI_-E-iNpc2Lp2L9cjonh2p9MX-bcp85g",
+  //   libraries: ['places'],
+  // })
 
   // const [showMap, setShowMap] = useState(false)
   // const mapRef = useRef()
@@ -93,7 +101,7 @@ export default function MapMarkerer({ address, miniMapCoor, setMiniMapCoor }: {a
           defaultCenter={miniMapCoor}
           center={miniMapCoor}
           defaultZoom={15}
-        //   options={""}
+          //   options={""}
           onChange={(e) => {
             console.log("e", e)
             setMiniMapCoor({ lat: e.center.lat, lng: e.center.lng })
