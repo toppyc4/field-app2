@@ -165,6 +165,8 @@ export const services = [
   "Vacant_Land",
   "Real_Estate",
   "Property",
+  "Condomedium",
+  "Product",
   "Service",
 ] as const
 
@@ -213,11 +215,11 @@ export const typesMap: {
     dark: "#f8fafc",
     type: "Vacant Land",
   },
-  House: {
+  Real_Estate: {
     icon: "/icon/solid/solid-home.svg",
     light: "#0f172a",
     dark: "#f8fafc",
-    type: "House",
+    type: "Real_Estate",
   },
   Property: {
     icon: "/icon/solid/solid-property.svg",
@@ -225,7 +227,7 @@ export const typesMap: {
     dark: "#f8fafc",
     type: "Property",
   },
-  Condo: {
+  Condomidium: {
     icon: "/icon/solid/solid-condo.svg",
     light: "#0f172a",
     dark: "#f8fafc",

@@ -1,7 +1,7 @@
 import React from "react"
-import { Address } from "../../utils/types"
+import { Coord } from "../../utils/types"
 
-const DrawingMap = ({ address }: { address: Address }) => {
+const DrawingMap = ({ coordinate }: { coordinate: Coord }) => {
   return <div>DrawingMap</div>
 }
 

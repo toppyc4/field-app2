@@ -4,13 +4,13 @@ import Image from "next/image"
 import DrawingMap from "./DrawingMap"
 // import GoogleMapReact from "google-map-react"
 import { useLoadScript, GoogleMap, MarkerF } from "@react-google-maps/api"
-import { Post, ServicesType, Address } from "../../utils/types"
+import { Post, ServicesType, Address, Coord } from "../../utils/types"
 import GoogleMapReact from "google-map-react"
 
 const Map = ({
   posts,
-  address,
-  setAddress,
+  coordinate,
+  setCoordinate,
   zoomLv,
   setZoomLv,
   // setBounds,
@@ -18,8 +18,8 @@ const Map = ({
   setChildClick,
 }: {
   posts: Post[] | null
-  address: Address
-  setAddress: (address: Address) => void
+  coordinate: Coord
+  setCoordinate: (coordinate: Coord) => void
   zoomLv: number
   setZoomLv: (zoomLv: number) => void
   drawingMap: boolean
@@ -77,14 +77,14 @@ const Map = ({
   //   setZoomLv(14)
   // }
 
-  console.log("address", address)
+  console.log("coordinate", coordinate)
   console.log("map", map)
   console.log("posts", posts)
   const center = { lat: 13.7563, lng: 100.5018 }
   return (
     <div className='w-full h-full bg-white'>
       {drawingMap ? (
-        <DrawingMap address={address} />
+        <DrawingMap coordinate={coordinate} />
       ) : (
         <div className='w-[100%] h-[100%] bg-black'>
           <GoogleMapReact
@@ -92,7 +92,7 @@ const Map = ({
               key: "AIzaSyCI_-E-iNpc2Lp2L9cjonh2p9MX-bcp85g",
             }}
             defaultCenter={{ lat: 13.7563, lng: 100.5018 }}
-            center={address.coords}
+            center={coordinate}
             zoom={13}
           >
             <div

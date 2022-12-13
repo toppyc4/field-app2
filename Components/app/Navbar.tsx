@@ -13,11 +13,11 @@ import { Address, Coord, Post } from "../../utils/types"
 // import { Autocomplete } from "@react-google-maps/api"
 
 export default function Navbar({
-  setAddress,
+  setCoordinate,
   drawingMap,
   setDrawingMap,
 }: {
-  setAddress: (address: Address) => void
+  setCoordinate: (coordinate: Coord) => void
   drawingMap: boolean
   setDrawingMap: (drawingMap: boolean) => void
 }): JSX.Element {
