@@ -17,7 +17,7 @@ import Axios from "axios"
 
 export default function Sidebar({
   posts,
-  setPosts,
+  // setPosts,
   filters,
   setFilters,
   childClick,
@@ -27,7 +27,7 @@ export default function Sidebar({
 }: // type,
 {
   posts: Post[] | null
-  setPosts: (posts: Post[]) => void
+  // setPosts: (posts: Post[]) => void
   filters: FiltersType
   setFilters: (filters: FiltersType) => void
   childClick: any
@@ -117,8 +117,8 @@ export default function Sidebar({
   ) => {
     const response = await fetch("/api/getProvince/" + province)
     const data = await response.json()
-    console.log("getProvince res data:", data)
     const provinceCoord = data.candidates[0].geometry.location
+    console.log("getProvince res data:", data)
     setCoordinate(provinceCoord)
   }
 
@@ -133,8 +133,9 @@ export default function Sidebar({
 
   console.log("posts: ", posts)
   console.log("filters:", filters)
+  console.log("province:", province)
   return (
-    <div className='h-[92vh] pt-4 px-4 bg-slate-100'>
+    <div className='h-[92vh] pt-2 px-4 bg-slate-100'>
       <div className=''>
         <div className='flex'>
           <h1 className='text-3xl font-bold'>{province ? province : "Main"}</h1>
@@ -315,10 +316,8 @@ export default function Sidebar({
           </div>
         )}
         {posts?.length == 0 && (
-          <div className='col-span-2'>
-            <h3 className='text-2xl'>
-              --- No place posted on this province yet ---
-            </h3>
+          <div className='flex justify-center p-4 col-span-2'>
+            <h3 className='text-2xl'>--- Zero post in this province ---</h3>
           </div>
         )}
       </div>

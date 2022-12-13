@@ -1,9 +1,17 @@
 // import React, { useContext, useState, useEffect } from "react"
 import Link from "next/link"
-import Image from "next/image";
+import Image from "next/image"
 import { Post } from "../../utils/types"
 
-const SidebarItem = ({ post, refProp, selected }: {post: Post; refProp: any; selected: any; }) => {
+const SidebarItem = ({
+  post,
+  refProp,
+  selected,
+}: {
+  post: Post
+  refProp: any
+  selected: any
+}) => {
   if (selected) {
     refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
@@ -15,13 +23,17 @@ const SidebarItem = ({ post, refProp, selected }: {post: Post; refProp: any; sel
         <Link href={`/${post.username}`}>
           <Image
             className=' object-contain'
-            src={post.photoUrl ? `${post.photoUrl}` : "/Markers/location-blue-marker.svg"}
+            src={
+              post.photoUrl
+                ? `${post.photoUrl}`
+                : "/icon/location-blue-marker.svg"
+            }
             layout='fill'
             alt={`${post.title}`}
           />
         </Link>
       </div>
-      
+
       <div className='px-6 py-2'>
         <header className='flex flex-wrap'>
           <p className='font-bold uppercase text-md max-h-20 overflow-hidden mb-2'>
@@ -37,14 +49,13 @@ const SidebarItem = ({ post, refProp, selected }: {post: Post; refProp: any; sel
           {post.content}
         </p> */}
         <div className='flex my-2 p-2 bg-gray-300 rounded-lg'>
-          <div className="relative w-[25px] h-[25px] mt-0.5 mr-0.5">
-
-          <Image
-            src='/Markers/location-blue-marker.svg'
-            className=''
-            alt='location-icon'
-            layout="fill"
-          />
+          <div className='relative w-[25px] h-[25px] mt-0.5 mr-0.5'>
+            <Image
+              src='/icon/location-blue-marker.svg'
+              className=''
+              alt='location-icon'
+              layout='fill'
+            />
           </div>
 
           {`${post.address.district}, ${post.address.locality}`}
@@ -53,10 +64,10 @@ const SidebarItem = ({ post, refProp, selected }: {post: Post; refProp: any; sel
         </div>
         <div className='flex'>
           <Link href={`/${post.username}`} className='flex items-center mt-2'>
-          <p className=' flex text-sm font-bold text-gray-900 leading-none'>
-            <button className='bg-lime-500 hover:bg-lime-400 text-white font-bold py-1 px-2 border-solid border-b-4 border-lime-700 hover:border-lime-500 rounded'>
-              @ {post.username}
-            </button>
+            <p className=' flex text-sm font-bold text-gray-900 leading-none'>
+              <button className='bg-lime-500 hover:bg-lime-400 text-white font-bold py-1 px-2 border-solid border-b-4 border-lime-700 hover:border-lime-500 rounded'>
+                @ {post.username}
+              </button>
             </p>
           </Link>
           <span className='inline-block bg-gray-200 rounded-full ml-auto p-2 text-sm font-semibold text-gray-700'>

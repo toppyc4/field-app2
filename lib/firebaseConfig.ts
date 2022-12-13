@@ -60,7 +60,7 @@ export const STATE_CHANGE = "state_changed"
  * Gets a users/{uid} document with username
  * @param {string} username
  */
- export async function getUserWithUsername(username: string): Promise<any> {
+export async function getUserWithUsername(username: string): Promise<any> {
   // userRef = collection("user")
   // const query = userRef.where("username", "==", username).limit(1)
 
@@ -90,10 +90,10 @@ export function postToJSON(doc: any) {
 }
 
 /**
- * Gets a provinces/{province} document with username
- * @param {string} username
+ * Gets a provinces/{province} document with province
+ * @param {string} province
  */
- export async function getPostsWithProvince(province: string) {
+export async function getPostsWithProvince(province: string) {
   // userRef = collection("user")
   // const query = userRef.where("username", "==", province).limit(1)
 

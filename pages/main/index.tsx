@@ -1,22 +1,36 @@
 // import { useLoadScript } from "@react-google-maps/api"
-
+import { InferGetServerSidePropsType, GetServerSideProps, NextPage } from "next"
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 
 // import { PlacesContext } from "../lib/context"
-import { Address, Coord } from "../../utils/types"
-import { Filters as FiltersType, Post } from "../../utils/types"
+import { Address, Coord, Filters as FiltersType, Post } from "../../utils/types"
 import Map from "../../Components/app/Map"
 import Sidebar from "../../Components/app/Sidebar"
 import Navbar from "../../Components/app/Navbar"
-import { InferGetServerSidePropsType, GetServerSideProps, NextPage } from "next"
+
+import {
+  getPostsWithProvince,
+  postToJSON,
+  firestore,
+} from "../../lib/firebaseConfig"
+import {
+  query,
+  collection,
+  where,
+  getDocs,
+  limit,
+  orderBy,
+  getFirestore,
+} from "firebase/firestore"
 
 const Home: NextPage = ({
   province,
   services,
+  posts,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter()
-  const [posts, setPosts] = useState<Post[]>([])
+  // const [posts, setPosts] = useState<Post[]>([])
   // TODO: Change coordinates to address
   const [coordinate, setCoordinate] = useState<Coord>({
     lat: 13.7563,
@@ -62,14 +76,6 @@ const Home: NextPage = ({
     }
   }, [filters])
 
-  // Load google map script
-  // const { isLoaded } = useLoadScript({
-  //   googleMapsApiKey: "AIzaSyCI_-E-iNpc2Lp2L9cjonh2p9MX-bcp85g",
-  //   libraries: ["places", "drawing", "geometry"],
-  // })
-
-  // if (!isLoaded) return <div>Loading . . . </div>
-
   console.log("Mainposts", posts)
   return (
     <>
@@ -82,9 +88,9 @@ const Home: NextPage = ({
         <div className='w-[40%]'>
           <Sidebar
             posts={posts}
-            setPosts={setPosts}
+            // setPosts={setPosts}
             setCoordinate={setCoordinate}
-            province={province}
+            province={filters.province}
             filters={filters}
             setFilters={setFilters}
             childClick={childClick}
@@ -98,7 +104,6 @@ const Home: NextPage = ({
             setCoordinate={setCoordinate}
             zoomLv={zoomLv}
             setZoomLv={setZoomLv}
-            // setBounds={setBounds}
             drawingMap={drawingMap}
             setChildClick={setChildClick}
           />
@@ -133,10 +138,31 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     typeOfService["Product"] = true
     // typeOfService['Real_Estate'] = true,  typeOfService['Property'] = true, typeOfService['Service'] = true
   }
+  // @ts-ignore
+  const provinceDocs = await getPostsWithProvince(province)
+
+  // JSON serializable data
+  let posts = null
+
+  if (provinceDocs) {
+    // province = provinceDocs.data()
+
+    const postQuery = query(
+      collection(getFirestore(), provinceDocs.ref.path, "posts"),
+      where("published", "==", true),
+      orderBy("createdAt", "desc"),
+      limit(30)
+    )
+    posts = (await getDocs(postQuery)).docs.map(postToJSON)
+  }
+  // return {
+  //   props: { posts, province }, // will be passed to the page component as props
+  // }
 
   return {
     props: {
-      province: "Bangkok",
+      posts,
+      province: province,
       services: typeOfService,
     },
   }

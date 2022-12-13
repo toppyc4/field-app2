@@ -2,8 +2,7 @@ import { useMemo, useCallback, useRef, useEffect, useState } from "react"
 import Image from "next/image"
 
 import DrawingMap from "./DrawingMap"
-// import GoogleMapReact from "google-map-react"
-import { useLoadScript, GoogleMap, MarkerF } from "@react-google-maps/api"
+// import { useLoadScript, GoogleMap, MarkerF } from "@react-google-maps/api"
 import { Post, ServicesType, Address, Coord } from "../../utils/types"
 import GoogleMapReact from "google-map-react"
 
@@ -13,7 +12,6 @@ const Map = ({
   setCoordinate,
   zoomLv,
   setZoomLv,
-  // setBounds,
   drawingMap,
   setChildClick,
 }: {
@@ -37,36 +35,25 @@ const Map = ({
     }),
     []
   )
-  const onLoad = useCallback(
-    setMap,
-    // (map) => (mapRef.current = map),
-    []
-  )
-  // const { isLoaded } = useLoadScript({
-  //   // @ts-ignore
-  //   googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-  //   libraries: ["places", "drawing", "geometry"],
-  // })
+  // const onLoad = useCallback(
+  //   setMap,
+  //   // (map) => (mapRef.current = map),
+  //   []
+  // )
 
-  // if (!isLoaded) return <div>Loading . . . </div>
-
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(
-  //     ({ coords: { latitude, longitude } }) => {
-  //       setCoordinates({ lat: latitude, lng: longitude })
-  //     }
-  //   )
-  //   setZoomLv(11)
-  // }, [])
   function iconType(type: ServicesType) {
     if (type === "Vacant_Land") {
-      return "/Markers/solid/field-stack-marker.svg"
+      return "/icon/solid/solid-field-stack.svg"
     } else if (type === "Real_Estate") {
-      return "/Markers/solid/home-marker.svg"
+      return "/icon/solid/solid-home.svg"
     } else if (type === "Property") {
-      return "/Markers/solid/building-storefront-marker.svg"
+      return "/icon/solid/solid-property.svg"
+    } else if (type === "Condomedium") {
+      return "/icon/solid/solid-condo.svg"
+    } else if (type === "Product") {
+      return "/icon/solid/solid-truck.svg"
     } else if (type === "Service") {
-      return "/Markers/solid/truck-marker.svg"
+      return "/icon/solid/solid-service.svg"
     }
   }
 
@@ -77,8 +64,6 @@ const Map = ({
   //   setZoomLv(14)
   // }
 
-  console.log("coordinate", coordinate)
-  console.log("map", map)
   console.log("posts", posts)
   const center = { lat: 13.7563, lng: 100.5018 }
   return (
@@ -89,7 +74,8 @@ const Map = ({
         <div className='w-[100%] h-[100%] bg-black'>
           <GoogleMapReact
             bootstrapURLKeys={{
-              key: "AIzaSyCI_-E-iNpc2Lp2L9cjonh2p9MX-bcp85g",
+              // @ts-ignore
+              key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
             }}
             defaultCenter={{ lat: 13.7563, lng: 100.5018 }}
             center={coordinate}
@@ -102,7 +88,7 @@ const Map = ({
               lng={100.5018}
             >
               <Image
-                src={"/Markers/location-black-marker.svg"}
+                src={"/icon/location-black-marker.svg"}
                 width={20}
                 height={20}
                 alt='marker'
@@ -112,14 +98,15 @@ const Map = ({
             {posts?.map((post, i) => {
               return (
                 <div
-                  className='hover: cursor-pointer'
+                  className='cursor-pointer'
                   //@ts-ignore
                   lat={post.address.coordinate.lat}
                   lng={post.address.coordinate.lng}
                   key={i}
                 >
                   <Image
-                    src={`${iconType(post.typeOfService)}`}
+                    // @ts-ignore
+                    src={iconType(post.typeOfService)}
                     width={20}
                     height={20}
                     alt='marker'
