@@ -48,7 +48,7 @@ const Map = ({
       return "/icon/solid/solid-home.svg"
     } else if (type === "Property") {
       return "/icon/solid/solid-property.svg"
-    } else if (type === "Condomedium") {
+    } else if (type === "Condomidium") {
       return "/icon/solid/solid-condo.svg"
     } else if (type === "Product") {
       return "/icon/solid/solid-truck.svg"

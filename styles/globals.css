@@ -44,9 +44,9 @@
     cursor: pointer;
   }
 
-  main {
-    max-height: 90vh;
-  }
+  /* main {
+    max-height: 92vh;
+  } */
 
   Link {
     cursor: pointer;

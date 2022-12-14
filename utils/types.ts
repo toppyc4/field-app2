@@ -1,3 +1,14 @@
+import { ParsedUrlQuery } from "querystring"
+
+export type Props = {
+  post: Post
+  province: ProvincesType
+}
+
+export interface Params extends ParsedUrlQuery {
+  province: string
+}
+
 export type Coord = {
   lat: number
   lng: number
@@ -12,11 +23,11 @@ export type Address = {
 export const provinces = [
   "Bangkok",
 
-  "Mae_Hong_Son",
+  "Mae-Hong-Son",
 
-  "Chiang_Mai",
+  "Chiang-Mai",
 
-  "Chiang_Rai",
+  "Chiang-Rai",
 
   "Phayao",
 
@@ -32,7 +43,7 @@ export const provinces = [
 
   "Tak",
 
-  "Kamphaeng_Phet",
+  "Kamphaeng-Phet",
 
   "Sukhothai",
 
@@ -40,53 +51,53 @@ export const provinces = [
 
   "Phichit",
 
-  "Nakhon_Sawan",
+  "Nakhon-Sawan",
 
-  "Uthai_Thani",
+  "Uthai-Thani",
 
-  "Chai_Nat",
+  "Chai-Nat",
 
   "Phetchabun",
 
   "Loei",
 
-  "Nong_Bua_Lumphu",
+  "Nong-Bua-Lumphu",
 
-  "Udon_Thani",
+  "Udon-Thani",
 
-  "Nong_Khai",
+  "Nong-Khai",
 
-  "Bueng_Kan",
+  "Bueng-Kan",
 
-  "Nakhon_Phanom",
+  "Nakhon-Phanom",
 
-  "Sakhon_Nakhon",
+  "Sakhon-Nakhon",
 
   "Mukdahan",
 
   "Kalasin",
 
-  "Maha_Sarakham",
+  "Maha-Sarakham",
 
-  "Khon_Kaen",
+  "Khon-Kaen",
 
   "ChaiyaPhum",
 
-  "Ubon_Ratchathani",
+  "Ubon-Ratchathani",
 
-  "Amnat_Charoen",
+  "Amnat-Charoen",
 
   "Yasothon",
 
-  "Roi_Et",
+  "Roi-Et",
 
   "Sisaket",
 
   "Surin",
 
-  "Buri_Rum",
+  "Buri-Rum",
 
-  "Nakhon_Ratchasima",
+  "Nakhon-Ratchasima",
 
   "SaKaeo",
 
@@ -100,51 +111,51 @@ export const provinces = [
 
   "Chachoengsao",
 
-  "Samut_Prakan",
+  "Samut-Prakan",
 
-  "Nakhon_Nayok",
+  "Nakhon-Nayok",
 
-  "Pathum_Thani",
+  "Pathum-Thani",
 
   "Saraburi",
 
-  "Phra_Nakhon_Si_Ayutthaya",
+  "Phra-Nakhon-Si-Ayutthaya",
 
-  "Ang_Thong",
+  "Ang-Thong",
 
-  "Sing_Buri",
+  "Sing-Buri",
 
-  "Suphan_Buri",
+  "Suphan-Buri",
 
-  "Khamphaeng_Phet",
+  "Khamphaeng-Phet",
 
   "Kanchanaburi",
 
-  "Nakhon_Pathom",
+  "Nakhon-Pathom",
 
-  "Samut_Sakhon",
+  "Samut-Sakhon",
 
-  "Samut_SongKhram",
+  "Samut-SongKhram",
 
   "Ratchaburi",
 
   "Phetchaburi",
 
-  "Prachuap_Khiri_Khan",
+  "Prachuap-Khiri-Khan",
 
   "Chumphon",
 
   "Ranong",
 
-  "Surat_Thani",
+  "Surat-Thani",
 
-  "Phang_nga",
+  "Phang-nga",
 
   "Phuket",
 
   "Krabi",
 
-  "Nakhon_Si_Thammarat",
+  "Nakhon-Si-Thammarat",
 
   "Trang",
 
@@ -165,12 +176,88 @@ export const services = [
   "Vacant_Land",
   "Real_Estate",
   "Property",
-  "Condomedium",
+  "Condomidium",
   "Product",
   "Service",
 ] as const
 
-export type ProvincesType = typeof provinces[number]
+export type ProvincesType =
+  | "Bangkok"
+  | "Mae Hong Son"
+  | "Chiang Mai"
+  | "Chiang Rai"
+  | "Phayao"
+  | "Nan"
+  | "Phrae"
+  | "Uttaradit"
+  | "Lumpang"
+  | "Lumphun"
+  | "Tak"
+  | "Kamphaeng Phet"
+  | "Sukhothai"
+  | "Phitsanulok"
+  | "Phichit"
+  | "Nakhon Sawan"
+  | "Uthai Thani"
+  | "Chai Nat"
+  | "Phetchabun"
+  | "Loei"
+  | "Nong Bua Lumphu"
+  | "Udon Thani"
+  | "Nong Khai"
+  | "Bueng Kan"
+  | "Nakhon Phanom"
+  | "Sakhon Nakhon"
+  | "Mukdahan"
+  | "Kalasin"
+  | "Maha Sarakham"
+  | "Khon Kaen"
+  | "ChaiyaPhum"
+  | "Ubon Ratchathani"
+  | "Amnat Charen"
+  | "Yasothon"
+  | "Roi-Et"
+  | "Sisaket"
+  | "Surin"
+  | "Buri Ru"
+  | "Nakhon Ratchasima"
+  | "SaKaeo"
+  | "Trat"
+  | "Chanthabur"
+  | "Rayong"
+  | "Chonburi"
+  | "Chachoengsao"
+  | "Samut Prakan"
+  | "Nakhon Nayok"
+  | "Pathum Thani"
+  | "Saraburi"
+  | "Phra Nakhon Si Ayutthaya"
+  | "Ang Thong"
+  | "Sing Buri"
+  | "Suphan Buri"
+  | "Khamphaeng Phet"
+  | "Kanchanaburi"
+  | "Nakhon Pathom"
+  | "Samut Sakhon"
+  | "Samut SongKhram"
+  | "Ratchaburi"
+  | "Phetchaburi"
+  | "Prachuap Khiri Khan"
+  | "Chumphon"
+  | "Ranong"
+  | "Surat Thani"
+  | "Phang-nga"
+  | "Phuket"
+  | "Krabi"
+  | "Nakhon Si Thammarat"
+  | "Trang"
+  | "Phatthalung"
+  | "Songkhla"
+  | "Satun"
+  | "Pattani"
+  | "Yala"
+  | "Narathiwat"
+  | null
 export type ServicesType = typeof services[number]
 
 export type Filters = {

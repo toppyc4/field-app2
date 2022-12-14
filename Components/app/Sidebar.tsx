@@ -23,7 +23,6 @@ export default function Sidebar({
   childClick,
   setCoordinate,
   drawingMap,
-  province,
 }: // type,
 {
   posts: Post[] | null
@@ -33,7 +32,7 @@ export default function Sidebar({
   childClick: any
   setCoordinate: (coordinate: Coord) => void
   drawingMap: boolean
-  province: any
+
   // type: ServicesType | null
 }) {
   const router = useRouter()
@@ -78,17 +77,6 @@ export default function Sidebar({
   //   setCoordinates({ lat, lng })
   //   router.push(`/main/${val}`)
   // }
-  // const handleProvinceSelect = async (e) => {
-  //   e.preventDefault()
-  //   const _province = await e.target.value
-  //   // setValue(province, false)
-  //   // alert(province)
-
-  //   const results = await getGeocode({ address: _province })
-  //   const { lat, lng } = await getLatLng(results[0])
-  //   setCoordinates({ lat, lng })
-  //   router.push(`/main/${_province}`)
-  // }
 
   // const handleTypeSelect = async (e) => {
   //   // e.preventDefault()
@@ -99,27 +87,37 @@ export default function Sidebar({
   //   router.push(`/main/${province.province}/${_type}`)
   // }
 
-  const getLatLng = async (
-    province: string
-    // setValue: (lat: number, lng: number, addr: string) => void
-  ) => {
-    const response = await fetch("/api/geocode/" + province)
-    const data = await response.json()
-    const { lat, lng } = data.results[0].geometry.location
-    const { formatted_address } = data.results[0]
-    console.log("getLatLng:", lat, lng, formatted_address)
-    // setValue(lat, lng, formatted_address)
-  }
+  // const handleProvinceSelect = async (e: any) => {
+  //   e.preventDefault()
+  //   const _province = await e.target.value
+  //   // setValue(province, false)
+  //   // alert(province)
 
-  const getProvince = async (
-    province: string
-    // setValue: (lat: number, lng: number, addr: string) => void
+  //   getProvinceCoord(_province)
+  //   router.push(`/main/${_province}`)
+  // }
+
+  const getProvinceCoord = async (
+    // this function is only allow to run with province in string type
+    province: string | null
   ) => {
     const response = await fetch("/api/getProvince/" + province)
     const data = await response.json()
     const provinceCoord = data.candidates[0].geometry.location
     console.log("getProvince res data:", data)
     setCoordinate(provinceCoord)
+  }
+
+  const search = async () => {
+    getProvinceCoord(filters.province)
+    router.push({
+      pathname: `/main/${filters.province}/`,
+      query: {
+        // ...router.query,
+        type: Object.keys(filters.typeOfService),
+      },
+    })
+    console.log("search")
   }
 
   useEffect(() => {
@@ -131,83 +129,82 @@ export default function Sidebar({
     setElRefs(refs)
   }, [posts])
 
-  console.log("posts: ", posts)
-  console.log("filters:", filters)
-  console.log("province:", province)
+  console.log("[Sidebar] posts: ", posts)
+  console.log("[Sidebar] filters:", filters)
+  console.log("[Sidebar] filters.province:", filters.province)
   return (
     <div className='h-[92vh] pt-2 px-4 bg-slate-100'>
-      <div className=''>
+      {/* filter div */}
+      <div className='border-b-2 border-slate-400'>
         <div className='flex'>
-          <h1 className='text-3xl font-bold'>{province ? province : "Main"}</h1>
-          <span className='my-auto ml-auto mr-4'>
+          <h1 className='text-3xl font-bold ml-2'>
+            {filters.province ? filters.province : "Province"}
+          </h1>
+          <span className='my-auto ml-auto mr-2'>
             - - - {posts?.length || 0} result(s) founded{" "}
           </span>
         </div>
 
         {/* province-Selector, type-Selector */}
         <div className='grid-list-selector'>
-          <div className='inline-block relative w-64'>
+          <div className='inline-block relative w-64 mx-auto'>
             <label className='font-medium'> province: </label>
 
             <select
-              onChange={
-                (e) => {
-                  setFilters({
-                    //@ts-ignore
-                    province: e.target.value,
-                    typeOfService: { ...filters.typeOfService },
-                  })
-                }
-                // (e) => {
-                //   alert(e.target.value)
-                // }
-              }
+              onChange={(e) => {
+                e.preventDefault()
+                setFilters({
+                  //@ts-ignore
+                  province: e.target.value,
+                  typeOfService: { ...filters.typeOfService },
+                })
+              }}
               className='block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight cursor-pointer focus:outline-none focus:shadow-outline'
               defaultValue={"none"}
             >
               <option value='none' disabled hidden>
                 Province (จังหวัด)
               </option>
-              <option value='Amnat_Charoen'>Amnat Charoen (อำนาจเจริญ)</option>
-              <option value='Ang_Thong'>Ang Thong (อ่างทอง)</option>
+              <option value='Amnat Charoen'>Amnat Charoen (อำนาจเจริญ)</option>
+              <option value='Ang Thong'>Ang Thong (อ่างทอง)</option>
               <option value='Bangkok'>Bangkok (กรุงเทพฯ)</option>
-              <option value='Buri_Rum'>Buri Rum (บุรีรัมย์)</option>
-              <option value='Bueng_Kan'>Bueng Kan (บึงกาฬ)</option>
+              <option value='Buri Rum'>Buri Rum (บุรีรัมย์)</option>
+              <option value='Bueng Kan'>Bueng Kan (บึงกาฬ)</option>
               <option value='Chachoengsao'>Chachoengsao (ฉะเชิงเทรา)</option>
               <option value='Chaiyaphum'>Chaiyaphum (ชัยภูมิ)</option>
               <option value='Chanthaburi'>Chanthaburi (จันทบุรี)</option>
-              <option value='Chiang_Mai'>Chiang Mai (เชียงใหม่)</option>
-              <option value='Chiang_Rai'>Chiang Rai (เชียงราย)</option>
+              <option value='Chiang Mai'>Chiang Mai (เชียงใหม่)</option>
+              <option value='Chiang Rai'>Chiang Rai (เชียงราย)</option>
               <option value='Chonburi'>Chonburi (ชลบุรี)</option>
               <option value='Chumphon'>Chumphon (ชุมพร)</option>
               <option value='Kalasin'>Kalasin (กาฬสินธุ์)</option>
-              <option value='Kamphaeng_Phet'>Kamphaeng Phet (กำแพงเพชร)</option>
+              <option value='Kamphaeng-Phet'>Kamphaeng Phet (กำแพงเพชร)</option>
               <option value='Kanchanaburi '>Kanchanaburi (กาญจนบุรี)</option>
-              <option value='Khon_Kaen'>Khon Kaen (ขอนแก่น)</option>
+              <option value='Khon-Kaen'>Khon Kaen (ขอนแก่น)</option>
               <option value='Krabi'>Krabi (กระบี่)</option>
               <option value='Loei'>Loei (เลย)</option>
               <option value='Lumpang'>Lumpang (ลำปาง)</option>
               <option value='Lumphun'>Lumphun (ลำพูน)</option>
-              <option value='Mae_Hong_Son'>Mae Hong Son (แม่ฮ่องสอน)</option>
+              <option value='Mae Hong Son'>Mae Hong Son (แม่ฮ่องสอน)</option>
               <option value='Maha Sarakham'>Maha Sarakham (มหาสารคาม)</option>
-              <option value='Nakhon_Nayok'>Nakhon Nayok (นครนายก)</option>
-              <option value='Nakhon_Pathom'>Nakhon Pathom (นครปฐม)</option>
+              <option value='Nakhon Nayok'>Nakhon Nayok (นครนายก)</option>
+              <option value='Nakhon Pathom'>Nakhon Pathom (นครปฐม)</option>
               <option value='Mukdahan'>Mukdahan (มุกดาหาร)</option>
-              <option value='Nakhon_Phanom'>Nakhon Phanom (นครพนม)</option>
-              <option value='Nakhon_Ratchasima'>
+              <option value='Nakhon Phanom'>Nakhon Phanom (นครพนม)</option>
+              <option value='Nakhon Ratchasima'>
                 Nakhon Ratchasima (นครนครราชสีมา)
               </option>
-              <option value='Nakhon_Sawan'>Nakhon Sawan (นครสวรรค์)</option>
-              <option value='Nakhon_Si_Thammarat'>
+              <option value='Nakhon Sawan'>Nakhon Sawan (นครสวรรค์)</option>
+              <option value='Nakhon Si Thammarat'>
                 Nakhon Si Thammarat (นครศรีธรรมราช)
               </option>
               <option value='Nan'>Nan (น่าน)</option>
               <option value='Narathiwat'>Narathiwat (นราธิวาส)</option>
-              <option value='Nong_Bua_Lumphu'>
+              <option value='Nong Bua Lumphu'>
                 Nong Bua Lumphu (หนองบัวลำภู)
               </option>
-              <option value='Nong_Khai'>Nong Khai (หนองคาย)</option>
-              <option value='Pathum_Thani'>Pathum Thani (ปทุมธานี)</option>
+              <option value='Nong Khai'>Nong Khai (หนองคาย)</option>
+              <option value='Pathum Thani'>Pathum Thani (ปทุมธานี)</option>
               <option value='Pattani'>Pattani (ปัตตานี)</option>
               <option value='Phang-nga'>Phang-nga (พังงา)</option>
               <option value='Phatthalung'>Phatthalung (พัทลุง)</option>
@@ -216,36 +213,36 @@ export default function Sidebar({
               <option value='Phetchaburi'>Phetchaburi (เพชรบุรี)</option>
               <option value='Phichit'>Phichit (พิจิตร)</option>
               <option value='Phitsanulok'>Phitsanulok (พิษณุโลก)</option>
-              <option value='Phra_Nakhon_Si_Ayutthaya'>
+              <option value='Phra Nakhon Si Ayutthaya'>
                 Phra Nakhon Si Ayutthaya (อยุธยา)
               </option>
               <option value='Phrae'>Phrae (แพร่)</option>
               <option value='Phuket'>Phuket (ภูเก็ต)</option>
-              <option value='Prachuap_Khiri_Khan'>
+              <option value='Prachuap Khiri Khan'>
                 Prachuap Khiri Khan (ประจวบคีรีขันธ์)
               </option>
               <option value='Ranong'>Ranong (ระนอง)</option>
               <option value='Ratchaburi'>Ratchaburi (ราชบุรี)</option>
               <option value='Rayong'>Rayong (ระยอง)</option>
-              <option value='Roi_Et'>Roi Et (ร้อยเอ็ด)</option>
-              <option value='Sa_Kaeo'>Sa Kaeo (สระแก้ว)</option>
-              <option value='Sakhon_Nakhon'>Sakhon Nakhon (สกลนคร)</option>
-              <option value='Samut_Prakan'>Samut Prakan (สมุทรปราการ)</option>
-              <option value='Samut_Sakhon'>Samut Sakhon (สมุทรสาคร)</option>
-              <option value='Sara_Buri'>Sara Buri (สระบุรี)</option>
+              <option value='Roi Et'>Roi Et (ร้อยเอ็ด)</option>
+              <option value='Sa Kaeo'>Sa Kaeo (สระแก้ว)</option>
+              <option value='Sakhon Nakhon'>Sakhon Nakhon (สกลนคร)</option>
+              <option value='Samut Prakan'>Samut Prakan (สมุทรปราการ)</option>
+              <option value='Samut Sakhon'>Samut Sakhon (สมุทรสาคร)</option>
+              <option value='Sara Buri'>Sara Buri (สระบุรี)</option>
               <option value='Satun'>Satun (สตูล)</option>
-              <option value='Sing_Buri'>Sing Buri (สิงห์บุรี)</option>
+              <option value='Sing-Buri'>Sing Buri (สิงห์บุรี)</option>
               <option value='Sisaket'>Sisaket (ศรีสะเกษ)</option>
               <option value='Songkhla'>Songkhla (สงขลา)</option>
               <option value='Sukhothai'>Sukhothai (สุโขทัย)</option>
-              <option value='Suphan_Buri'>Suphan Buri (สุพรรณบุรี)</option>
-              <option value='Surat_Thani'>Surat Thani (สุราษฎร์ธานี)</option>
+              <option value='Suphan Buri'>Suphan Buri (สุพรรณบุรี)</option>
+              <option value='Surat Thani'>Surat Thani (สุราษฎร์ธานี)</option>
               <option value='Surin'>Surin (สุรินทร์)</option>
               <option value='Tak'>Tak (ตาก)</option>
               <option value='Trat'>Trat (ตราด)</option>
-              <option value='Ubon_Ratchath'>Ubon Ratchath (อุบลราชธานี)</option>
-              <option value='Udon_Thani'>Udon Thani (อุดรธานี)</option>
-              <option value='Uthai_Thani'>Uthai Thani (อุทัยธานี)</option>
+              <option value='Ubon Ratchath'>Ubon Ratchath (อุบลราชธานี)</option>
+              <option value='Udon Thani'>Udon Thani (อุดรธานี)</option>
+              <option value='Uthai Thani'>Uthai Thani (อุทัยธานี)</option>
               <option value='Uttaradit'>Uttaradit (อุตรดิตถ์)</option>
               <option value='Yala'>Yala (ยะลา)</option>
             </select>
@@ -260,7 +257,7 @@ export default function Sidebar({
               </svg>
             </div>
           </div>
-          <div className='inline-block relative w-64'>
+          <div className='inline-block relative w-64 mx-auto'>
             <label className='font-medium'> type of service: </label>
             {/* <select
               // onChange={handleTypeSelect}
@@ -292,8 +289,8 @@ export default function Sidebar({
           </div>
         </div>
         <button
-          className='mt-[0.69rem] w-[690px] bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-4 border-solid border-b-4 border-emerald-700 hover:border-emerald-500 rounded'
-          onClick={() => getProvince(filters.province)}
+          className='flex mx-auto my-[0.42rem] w-auto bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-2 px-4 border-solid border-b-4 border-emerald-700 hover:border-emerald-500 rounded'
+          onClick={search}
         >
           Search
         </button>
