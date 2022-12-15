@@ -1,8 +1,6 @@
 import { NextPage } from "next"
-
 import { useState, useEffect } from "react"
 
-// import { PlacesContext } from "../lib/context"
 import { Coord, Filters as FiltersType, Post } from "../../utils/types"
 import Map from "../../Components/app/Map"
 import Navbar from "../../Components/app/Navbar"
@@ -16,12 +14,12 @@ const Home: NextPage = () => {
   const [filters, setFilters] = useState<FiltersType>({
     province: null,
     typeOfService: {
-      Vacant_Land: false,
-      Real_Estate: false,
-      Property: false,
-      Condomidium: false,
-      Service: false,
-      Product: false,
+      vacant_land: false,
+      real_estate: false,
+      property: false,
+      condomidium: false,
+      service: false,
+      product: false,
     },
   })
   const [zoomLv, setZoomLv] = useState(11)
@@ -45,7 +43,7 @@ const Home: NextPage = () => {
         drawingMap={drawingMap}
         setDrawingMap={setDrawingMap}
       />
-      <main className='h-[92vh] flex'>
+      <main className='h-[92vh] flex relative'>
         <div className='w-[40%]'>
           <Sidebar
             posts={null}

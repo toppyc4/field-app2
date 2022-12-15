@@ -173,12 +173,12 @@ export const provinces = [
 ] as const
 
 export const services = [
-  "Vacant_Land",
-  "Real_Estate",
-  "Property",
-  "Condomidium",
-  "Product",
-  "Service",
+  "vacant_land",
+  "real_estate",
+  "property",
+  "condomidium",
+  "product",
+  "service",
 ] as const
 
 export type ProvincesType =
@@ -296,37 +296,37 @@ export type Post = {
 export const typesMap: {
   [key: string]: { icon: string; light: string; dark: string; type: string }
 } = {
-  Vacant_Land: {
+  vacant_land: {
     icon: "/icon/solid/solid-field-stack.svg",
     light: "#0f172a",
     dark: "#f8fafc",
     type: "Vacant Land",
   },
-  Real_Estate: {
+  real_estate: {
     icon: "/icon/solid/solid-home.svg",
     light: "#0f172a",
     dark: "#f8fafc",
     type: "Real_Estate",
   },
-  Property: {
+  property: {
     icon: "/icon/solid/solid-property.svg",
     light: "#0f172a",
     dark: "#f8fafc",
     type: "Property",
   },
-  Condomidium: {
+  condomidium: {
     icon: "/icon/solid/solid-condo.svg",
     light: "#0f172a",
     dark: "#f8fafc",
     type: "Condomidium",
   },
-  Product: {
+  product: {
     icon: "/icon/solid/solid-truck.svg",
     light: "#0f172a",
     dark: "#f8fafc",
     type: "Product",
   },
-  Service: {
+  service: {
     icon: "/icon/solid/solid-service.svg",
     light: "#0f172a",
     dark: "#f8fafc",

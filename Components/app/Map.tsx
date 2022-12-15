@@ -42,17 +42,17 @@ const Map = ({
   // )
 
   function iconType(type: ServicesType) {
-    if (type === "Vacant_Land") {
+    if (type === "vacant_land") {
       return "/icon/solid/solid-field-stack.svg"
-    } else if (type === "Real_Estate") {
+    } else if (type === "real_estate") {
       return "/icon/solid/solid-home.svg"
-    } else if (type === "Property") {
+    } else if (type === "property") {
       return "/icon/solid/solid-property.svg"
-    } else if (type === "Condomidium") {
+    } else if (type === "condomidium") {
       return "/icon/solid/solid-condo.svg"
-    } else if (type === "Product") {
+    } else if (type === "product") {
       return "/icon/solid/solid-truck.svg"
-    } else if (type === "Service") {
+    } else if (type === "service") {
       return "/icon/solid/solid-service.svg"
     }
   }
