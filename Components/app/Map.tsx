@@ -5,28 +5,32 @@ import DrawingMap from "./DrawingMap"
 // import { useLoadScript, GoogleMap, MarkerF } from "@react-google-maps/api"
 import { Post, ServicesType, Address, Coord } from "../../utils/types"
 import GoogleMapReact from "google-map-react"
+import useSWR from "swr"
+import useHasMounted from "../../utils/useHasMounted"
+
+// @ts-ignore
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 const Map = ({
   posts,
-  coordinate,
-  setCoordinate,
+  address,
+  setAddress,
   zoomLv,
   setZoomLv,
   drawingMap,
   setChildClick,
 }: {
   posts: Post[] | null
-  coordinate: Coord
-  setCoordinate: (coordinate: Coord) => void
+  address: Address
+  setAddress: (address: Address) => void
   zoomLv: number
   setZoomLv: (zoomLv: number) => void
   drawingMap: boolean
   setChildClick: (childClick: any) => void
 }) => {
-  const [map, setMap] = useState(null)
-
-  const mapRef = useRef()
-  // const center = useMemo(() => ({ lat: 43, lng: -80 }), [])
+  const { data, error } = useSWR("/api/mapURL", fetcher)
+  const mapRef = useRef(null)
+  const hasMounted = useHasMounted()
   const options = useMemo(
     () => ({
       mapId: "1dc8eb85a559cb2e",
@@ -40,6 +44,17 @@ const Map = ({
   //   // (map) => (mapRef.current = map),
   //   []
   // )
+
+  useEffect(() => {
+    console.log("reset center")
+    // @ts-ignore
+    mapRef.current.map_?.setCenter({
+      lat: address.coords?.lat,
+      lng: address.coords?.lng,
+    })
+    // @ts-ignore
+    mapRef.current.map_?.setZoom(16)
+  }, [address, data, hasMounted])
 
   function iconType(type: ServicesType) {
     if (type === "vacant_land") {
@@ -64,24 +79,28 @@ const Map = ({
   //   setZoomLv(14)
   // }
 
-  console.log("posts", posts)
-  const center = { lat: 13.7563, lng: 100.5018 }
+  console.log("[Map]posts", posts)
+  console.log("[Map]zoomLv", zoomLv)
   return (
     <div className='w-full h-full bg-white'>
       {drawingMap ? (
-        <DrawingMap coordinate={coordinate} />
+        <DrawingMap address={address} />
       ) : (
         <div className='w-[100%] h-[100%] bg-black'>
           <GoogleMapReact
+            ref={mapRef}
             bootstrapURLKeys={{
               // @ts-ignore
               key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
             }}
-            defaultCenter={{ lat: 13.7563, lng: 100.5018 }}
-            center={coordinate}
-            zoom={13}
+            defaultCenter={{
+              lat: address.coords?.lat || 13.7563,
+              lng: address.coords?.lng || 100.5018,
+            }}
+            center={address.coords}
+            defaultZoom={13}
           >
-            <div
+            {/* <div
               className='absolute z-1 hover:z-2'
               //@ts-ignore
               lat={13.7563}
@@ -93,7 +112,7 @@ const Map = ({
                 height={20}
                 alt='marker'
               />
-            </div>
+            </div> */}
 
             {posts?.map((post, i) => {
               return (

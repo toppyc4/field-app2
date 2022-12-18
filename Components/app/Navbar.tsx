@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { UserContext } from "../../lib/context"
 import { SignOutButton } from "../../pages/loginForm"
 
@@ -13,15 +13,46 @@ import { Address, Coord, Post } from "../../utils/types"
 // import { Autocomplete } from "@react-google-maps/api"
 
 export default function Navbar({
-  setCoordinate,
   drawingMap,
   setDrawingMap,
+  address,
+  setAddress,
 }: {
-  setCoordinate: (coordinate: Coord) => void
+  address: Address
+  setAddress: (address: Address) => void
   drawingMap: boolean
   setDrawingMap: (drawingMap: boolean) => void
 }): JSX.Element {
   const { user, username } = useContext(UserContext)
+
+  const getLatLng = async (
+    placeId: string,
+    setValue: (lat: number, lng: number, addr: string) => void
+  ) => {
+    const response = await fetch("/api/geocode/" + placeId)
+    const data = await response.json()
+    const { lat, lng } = data.results[0].geometry.location
+    const { formatted_address } = data.results[0]
+    console.log("[getLatLng]data:", data)
+    setValue(lat, lng, formatted_address)
+    // setAddress
+  }
+  // const clearLocations = () => {
+  //   setLocations([])
+  // }
+
+  // seem like this function is for set multiple coordinate on the map
+  // useEffect(() => {
+  //   if (address.place_id && !address.coords) {
+  //     getLatLng(address.place_id, (lat, lng, addr) => {
+  //       const newAddresses = address
+
+  //       newAddresses.coords = { lat, lng }
+  //       newAddresses.formatted_address = addr
+  //       setAddress(newAddresses)
+  //     })
+  //   }
+  // }, [])
 
   const CreatePostButton = () => {
     const router = useRouter()
@@ -57,15 +88,29 @@ export default function Navbar({
       </Link>
 
       <div className='ml-auto mr-3 inline-block relative w-64'>
-        {/* <SearchBox
-          value={address}
-          setValue={(value) => {
-            const newAddresses = [...addresses]
-            newAddresses[i] = value
-            setAddresses(newAddresses)
-          }}
-          placeholder='Address'
-        /> */}
+        <SearchBox
+          setAddress={setAddress}
+          // clearLocations={clearLocations}
+          // value={{
+          //   value: address.place_id,
+          //   label:
+          //     address.formatted_address == ""
+          //       ? "Search"
+          //       : address.formatted_address,
+          // }}
+          // setValue={(label, value) => {
+          //   getLatLng(value, (lat, lng) => {
+          //     const newAddress = address
+          //     newAddress.coords = { lat, lng }
+          //     newAddress.formatted_address = label
+          //     newAddress.place_id = value
+          //     console.log("[getLatLng]newAddress:", newAddress)
+          //     setAddress(newAddress)
+          //     console.log("[getLatLng]value:", value)
+          //   })
+          // }}
+          // placeholder='Search'
+        />
         {/* <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
           <input
             className='appearance-none block w-full my-2 bg-white text-gray-700  border-gray-400  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'

@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 
 import SidebarItem from "./SidebarItem"
 import Filters from "./Filters"
-import { Post, Coord, Filters as FiltersType } from "../../utils/types"
+import { Post, Coord, Filters as FiltersType, Address } from "../../utils/types"
 
 import { useTheme } from "next-themes"
 import { toast } from "react-hot-toast"
@@ -14,7 +14,7 @@ export default function Sidebar({
   filters,
   setFilters,
   childClick,
-  setCoordinate,
+  setAddress,
   drawingMap,
 }: {
   posts: Post[] | null
@@ -22,7 +22,7 @@ export default function Sidebar({
   filters: FiltersType
   setFilters: (filters: FiltersType) => void
   childClick: any
-  setCoordinate: (coordinate: Coord) => void
+  setAddress: (address: Address) => void
   drawingMap: boolean
 
   // type: ServicesType | null
@@ -93,10 +93,11 @@ export default function Sidebar({
     // this function is only allow to run with province in string type
     province: string | null
   ) => {
-    const response = await fetch("/api/getProvince/" + province)
+    const response = await fetch("/api/autocomplete2/" + province)
     const data = await response.json()
     const provinceCoord = data.candidates[0].geometry.location
-    setCoordinate(provinceCoord)
+    const provinceAddrs = data.candidates[0].formatted_address
+    setAddress({ formatted_address: provinceAddrs, coords: provinceCoord })
   }
 
   const search = async () => {

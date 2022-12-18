@@ -16,8 +16,8 @@ export type Coord = {
 
 export type Address = {
   formatted_address: string
-  coords?: Coord | undefined
-  place_id?: string | undefined
+  coords?: Coord
+  place_id?: string
 }
 
 export const provinces = [

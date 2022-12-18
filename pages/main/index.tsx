@@ -1,15 +1,16 @@
 import { NextPage } from "next"
 import { useState, useEffect } from "react"
 
-import { Coord, Filters as FiltersType, Post } from "../../utils/types"
+import { Coord, Filters as FiltersType, Post, Address } from "../../utils/types"
 import Map from "../../Components/app/Map"
 import Navbar from "../../Components/app/Navbar"
 import Sidebar from "../../Components/app/Sidebar"
 
 const Home: NextPage = () => {
-  const [coordinate, setCoordinate] = useState<Coord>({
-    lat: 13.7563,
-    lng: 100.5018,
+  const [address, setAddress] = useState<Address>({
+    formatted_address: "",
+    coords: { lat: 13.7563, lng: 100.5018 },
+    place_id: undefined,
   })
   const [filters, setFilters] = useState<FiltersType>({
     province: null,
@@ -30,16 +31,20 @@ const Home: NextPage = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
-        setCoordinate({ lat: latitude, lng: longitude })
+        setAddress({
+          formatted_address: "",
+          coords: { lat: latitude, lng: longitude },
+        })
       }
     )
-    setZoomLv(11)
+    setZoomLv(10)
   }, [])
 
   return (
     <>
       <Navbar
-        setCoordinate={setCoordinate}
+        address={address}
+        setAddress={setAddress}
         drawingMap={drawingMap}
         setDrawingMap={setDrawingMap}
       />
@@ -48,7 +53,7 @@ const Home: NextPage = () => {
           <Sidebar
             posts={null}
             // setPosts={setPosts}
-            setCoordinate={setCoordinate}
+            setAddress={setAddress}
             filters={filters}
             setFilters={setFilters}
             childClick={childClick}
@@ -58,8 +63,8 @@ const Home: NextPage = () => {
         <div className='w-[60%]'>
           <Map
             posts={null}
-            coordinate={coordinate}
-            setCoordinate={setCoordinate}
+            address={address}
+            setAddress={setAddress}
             zoomLv={zoomLv}
             setZoomLv={setZoomLv}
             drawingMap={drawingMap}
