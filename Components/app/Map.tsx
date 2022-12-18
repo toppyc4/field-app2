@@ -15,18 +15,18 @@ const Map = ({
   posts,
   address,
   setAddress,
-  zoomLv,
-  setZoomLv,
   drawingMap,
-  setChildClick,
-}: {
+  selectedMarker,
+  setSelectedMarker,
+}: // itemsRef,
+{
   posts: Post[] | null
   address: Address
   setAddress: (address: Address) => void
-  zoomLv: number
-  setZoomLv: (zoomLv: number) => void
   drawingMap: boolean
-  setChildClick: (childClick: any) => void
+  selectedMarker: Post | null
+  setSelectedMarker: (marker: Post) => void
+  // itemsRef: React.MutableRefObject<HTMLDivElement | null>
 }) => {
   const { data, error } = useSWR("/api/mapURL", fetcher)
   const mapRef = useRef(null)
@@ -39,22 +39,25 @@ const Map = ({
     }),
     []
   )
-  // const onLoad = useCallback(
-  //   setMap,
-  //   // (map) => (mapRef.current = map),
-  //   []
-  // )
 
   useEffect(() => {
-    console.log("reset center")
     // @ts-ignore
     mapRef.current.map_?.setCenter({
       lat: address.coords?.lat,
       lng: address.coords?.lng,
     })
     // @ts-ignore
-    mapRef.current.map_?.setZoom(16)
+    mapRef.current.map_?.setZoom(13)
   }, [address, data, hasMounted])
+
+  useEffect(() => {
+    if (selectedMarker && mapRef.current) {
+      // @ts-ignore
+      mapRef.current.map_?.setZoom(14)
+      // @ts-ignore
+      mapRef.current.map_?.panTo(selectedMarker.address.coordinate)
+    }
+  }, [selectedMarker])
 
   function iconType(type: ServicesType) {
     if (type === "vacant_land") {
@@ -72,15 +75,16 @@ const Map = ({
     }
   }
 
-  // function handleClick(position: { lat: number; lng: number }, i: number) {
-  //   setAddress(position)
-  //   setChildClick(i)
+  // function handleClick(position: { lat: number; lng: number }, post: Post) {
+  //   if (selectedMarker && mapRef.current) {
+  //   mapRef.current.map_?.panTo(selectedMarker.address.coordinate)
   //   // mapRef.current?.panTo(position)
-  //   setZoomLv(14)
+  //   }
   // }
 
   console.log("[Map]posts", posts)
-  console.log("[Map]zoomLv", zoomLv)
+  console.log("[Map]address", address)
+  console.log("[Map]mapRef", mapRef)
   return (
     <div className='w-full h-full bg-white'>
       {drawingMap ? (
@@ -89,6 +93,7 @@ const Map = ({
         <div className='w-[100%] h-[100%] bg-black'>
           <GoogleMapReact
             ref={mapRef}
+            // options={}
             bootstrapURLKeys={{
               // @ts-ignore
               key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
@@ -100,11 +105,11 @@ const Map = ({
             center={address.coords}
             defaultZoom={13}
           >
-            {/* <div
+            <div
               className='absolute z-1 hover:z-2'
               //@ts-ignore
-              lat={13.7563}
-              lng={100.5018}
+              lat={address.coords?.lat}
+              lng={address.coords?.lng}
             >
               <Image
                 src={"/icon/location-black-marker.svg"}
@@ -112,7 +117,7 @@ const Map = ({
                 height={20}
                 alt='marker'
               />
-            </div> */}
+            </div>
 
             {posts?.map((post, i) => {
               return (
@@ -122,6 +127,27 @@ const Map = ({
                   lat={post.address.coordinate.lat}
                   lng={post.address.coordinate.lng}
                   key={i}
+                  onClick={() => {
+                    if (posts) {
+                      // const div = itemsRef.current.querySelector(
+                      //   `div#p${
+                      //     post.address.coordinate.lat +
+                      //     post.address.coordinate.lng
+                      //   }`
+                      // )
+                      const div = window.document.getElementById(
+                        `p${
+                          post.address.coordinate.lat +
+                          post.address.coordinate.lng
+                        }`
+                      )
+                      div?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      })
+                      setSelectedMarker(post)
+                    }
+                  }}
                 >
                   <Image
                     // @ts-ignore

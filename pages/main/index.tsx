@@ -1,5 +1,5 @@
 import { NextPage } from "next"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 import { Coord, Filters as FiltersType, Post, Address } from "../../utils/types"
 import Map from "../../Components/app/Map"
@@ -23,10 +23,10 @@ const Home: NextPage = () => {
       product: false,
     },
   })
-  const [zoomLv, setZoomLv] = useState(11)
 
   const [drawingMap, setDrawingMap] = useState(false)
-  const [childClick, setChildClick] = useState(null)
+  const [selectedMarker, setSelectedMarker] = useState<Post | null>(null)
+  const itemsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -37,7 +37,6 @@ const Home: NextPage = () => {
         })
       }
     )
-    setZoomLv(10)
   }, [])
 
   return (
@@ -52,12 +51,13 @@ const Home: NextPage = () => {
         <div className='w-[40%]'>
           <Sidebar
             posts={null}
-            // setPosts={setPosts}
             setAddress={setAddress}
             filters={filters}
             setFilters={setFilters}
-            childClick={childClick}
+            selectedMarker={selectedMarker}
+            setSelectedMarker={setSelectedMarker}
             drawingMap={drawingMap}
+            // itemsRef={itemsRef}
           />
         </div>
         <div className='w-[60%]'>
@@ -65,10 +65,10 @@ const Home: NextPage = () => {
             posts={null}
             address={address}
             setAddress={setAddress}
-            zoomLv={zoomLv}
-            setZoomLv={setZoomLv}
             drawingMap={drawingMap}
-            setChildClick={setChildClick}
+            selectedMarker={selectedMarker}
+            setSelectedMarker={setSelectedMarker}
+            // itemsRef={itemsRef}
           />
         </div>
       </main>

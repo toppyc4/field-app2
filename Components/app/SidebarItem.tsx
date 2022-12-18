@@ -1,23 +1,36 @@
 // import React, { useContext, useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Post } from "../../utils/types"
+import { Post, ServicesType } from "../../utils/types"
 
 const SidebarItem = ({
   post,
-  refProp,
-  selected,
+  setSelectedMarker,
 }: {
   post: Post
-  refProp: any
-  selected: any
+  setSelectedMarker: (marker: Post) => void
 }) => {
-  if (selected) {
-    refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+  function iconType(type: ServicesType) {
+    if (type === "vacant_land") {
+      return "/icon/solid/solid-field-stack.svg"
+    } else if (type === "real_estate") {
+      return "/icon/solid/solid-home.svg"
+    } else if (type === "property") {
+      return "/icon/solid/solid-property.svg"
+    } else if (type === "condomidium") {
+      return "/icon/solid/solid-condo.svg"
+    } else if (type === "product") {
+      return "/icon/solid/solid-truck.svg"
+    } else if (type === "service") {
+      return "/icon/solid/solid-service.svg"
+    }
   }
-
   return (
-    <div className='max-w-sm max-h-[100vh] my-[0.5rem] bg-neutral-100 overflow-hidden shadow-lg'>
+    <div
+      className='max-w-sm max-h-[100vh] my-[0.5rem] bg-neutral-100 overflow-hidden shadow-lg'
+      onClick={() => setSelectedMarker(post)}
+      id={`p${post.address.coordinate.lat + post.address.coordinate.lng}`}
+    >
       <div className='relative w-full min-h-[20vh] bg-white'>
         {/* TODO: Click on photo and scroll into view instead of link */}
         <Link href={`/${post.username}`}>
@@ -51,7 +64,8 @@ const SidebarItem = ({
         <div className='flex my-2 p-2 bg-gray-300 rounded-lg'>
           <div className='relative w-[25px] h-[25px] mt-0.5 mr-0.5'>
             <Image
-              src='/icon/location-blue-marker.svg'
+              //@ts-ignore
+              src={iconType(post.typeOfService)}
               className=''
               alt='location-icon'
               layout='fill'

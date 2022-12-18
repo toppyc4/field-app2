@@ -13,81 +13,27 @@ export default function Sidebar({
   // setPosts,
   filters,
   setFilters,
-  childClick,
+  selectedMarker,
+  setSelectedMarker,
   setAddress,
   drawingMap,
-}: {
+}: // itemsRef,
+{
   posts: Post[] | null
   // setPosts: (posts: Post[]) => void
   filters: FiltersType
   setFilters: (filters: FiltersType) => void
-  childClick: any
+  selectedMarker: Post | null
+  setSelectedMarker: (marker: Post) => void
   setAddress: (address: Address) => void
   drawingMap: boolean
-
+  // itemsRef: React.RefObject<HTMLDivElement>
   // type: ServicesType | null
 }) {
   const router = useRouter()
   // const { query } = useRouter()
   const [elRefs, setElRefs] = useState([])
   const { theme } = useTheme()
-
-  // const {
-  //   ready,
-  //   value,
-  //   setValue,
-  //   // suggestions: { status, data },
-  //   clearSuggestions,
-  // } = usePlacesAutocomplete()
-
-  // console.log("province", province)
-  // console.log("type", type)
-
-  // console.log("router", router.query)
-  // console.log("router.asPath", router.asPath)
-  // console.log("router.asPath lenght", router.asPath.length)
-
-  // function provinceTitle() {
-  //   if (router.asPath.length > 5) {
-  //     return decodeURIComponent(router.asPath.slice(6))
-  //   } else if (router.asPath.length == 5) {
-  //     return "Main"
-  //   }
-  //   // if (router.query.length !== 0) {
-  //   //   return router.query.province
-  //   // } else if (router.query === 0) {
-  //   //   return <p>Main</p>
-  //   // }
-  // }
-
-  // const handleSelect = async (val) => {
-  //   setValue(val, false)
-  //   clearSuggestions()
-
-  //   const results = await getGeocode({ address: val })
-  //   const { lat, lng } = await getLatLng(results[0])
-  //   setCoordinates({ lat, lng })
-  //   router.push(`/main/${val}`)
-  // }
-
-  // const handleTypeSelect = async (e) => {
-  //   // e.preventDefault()
-  //   const _type = await e.target.value
-  //   // setValue(province, false)
-  //   // alert(province)
-
-  //   router.push(`/main/${province.province}/${_type}`)
-  // }
-
-  // const handleProvinceSelect = async (e: any) => {
-  //   e.preventDefault()
-  //   const _province = await e.target.value
-  //   // setValue(province, false)
-  //   // alert(province)
-
-  //   getProvinceCoord(_province)
-  //   router.push(`/main/${_province}`)
-  // }
 
   const getProvinceCoord = async (
     // this function is only allow to run with province in string type
@@ -117,14 +63,14 @@ export default function Sidebar({
     console.log("search")
   }
 
-  useEffect(() => {
-    const refs = Array(posts?.length)
-      //@ts-ignore going to ignore .fill() for now Let see how MeetMeInTheMiddle did it
-      .fill()
-      .map((_, i) => elRefs[i] || createRef())
+  // useEffect(() => {
+  //   const refs = Array(posts?.length)
+  //     //@ts-ignore going to ignore .fill() for now Let see how MeetMeInTheMiddle did it
+  //     .fill()
+  //     .map((_, i) => elRefs[i] || createRef())
 
-    setElRefs(refs)
-  }, [posts])
+  //   setElRefs(refs)
+  // }, [posts])
 
   console.log("[Sidebar] posts: ", posts)
   console.log("[Sidebar] filters:", filters)
@@ -277,19 +223,23 @@ export default function Sidebar({
         </button>
       </div>
 
-      <div className='grid-list-items'>
+      <div
+        className='grid-list-items'
+        //  ref={itemsRef}
+      >
         {posts?.map((post, i) => (
-          <div className='m-2' ref={elRefs[i]} key={i}>
+          <div className='m-2' key={i}>
             <SidebarItem
               key={i}
               post={post}
-              selected={Number(childClick) === i}
-              refProp={elRefs[i]}
+              setSelectedMarker={setSelectedMarker}
+              // itemsRef={elRefs[i]}
             />
           </div>
         ))}
+
         {!posts && (
-          <div className='col-span-2'>
+          <div className='flex justify-center p-4 col-span-2'>
             <h3 className='text-2xl'>--- Please Choose Province ---</h3>
           </div>
         )}

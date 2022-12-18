@@ -124,7 +124,7 @@ export default function Navbar({
         <div className='flex content-center'>
           <Link
             href={`/${username}`}
-            className='flex bg-lime-500 hover:bg-lime-400 text-white my-auto mr-3 p-1 max-h-[50px] border-solid border-b-4 border-lime-700 hover:border-lime-500 rounded overflow-hidden'
+            className='flex bg-lime-500 hover:bg-lime-400 text-white font-bold my-auto mr-3 p-1 max-h-[50px] border-solid border-b-4 border-lime-700 hover:border-lime-500 rounded overflow-hidden'
           >
             <Image
               src={user?.photoURL || "/img/question-mark-profile.jpg"}
