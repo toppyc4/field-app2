@@ -29,7 +29,7 @@ export default function Sidebar({
   drawingMap: boolean
   // itemsRef: React.RefObject<HTMLDivElement>
   // type: ServicesType | null
-}) {
+}): JSX.Element {
   const router = useRouter()
   // const { query } = useRouter()
   const [elRefs, setElRefs] = useState([])
@@ -46,7 +46,7 @@ export default function Sidebar({
     setAddress({ formatted_address: provinceAddrs, coords: provinceCoord })
   }
 
-  const search = async () => {
+  const search = async (): Promise<void> => {
     getProvinceCoord(filters.province)
     router.push({
       pathname: `/main/${filters.province}/`,

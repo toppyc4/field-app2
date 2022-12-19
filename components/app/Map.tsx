@@ -27,7 +27,7 @@ const Map = ({
   selectedMarker: Post | null
   setSelectedMarker: (marker: Post) => void
   // itemsRef: React.MutableRefObject<HTMLDivElement | null>
-}) => {
+}): JSX.Element => {
   const { data, error } = useSWR("/api/mapURL", fetcher)
   const mapRef = useRef(null)
   const hasMounted = useHasMounted()

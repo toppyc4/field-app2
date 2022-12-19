@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/image"
 import { useRouter } from "next/router"
 
 import {
@@ -28,12 +28,12 @@ export default function Intro(): JSX.Element {
   )
 }
 
-const SignInButton = () => {
+const SignInButton = (): JSX.Element => {
   const router = useRouter()
   const signInWithGoogle = async () => {
     await signInWithPopup(auth, googleAuthProvider)
       .then(() => {
-        router.push("/LoginForm")
+        router.push("/login")
         toast.success("Successfully Sign In! (w/ Google acc)")
       })
       .catch((err) => {
@@ -43,7 +43,7 @@ const SignInButton = () => {
   const signInWithFacebook = async () => {
     await signInWithPopup(auth, facebookAuthProvider)
       .then(() => {
-        router.push("/LoginForm")
+        router.push("/login")
         toast.success("Successfully Sign In! (w/ Facebook acc)")
       })
       .catch((err) => {
@@ -52,7 +52,10 @@ const SignInButton = () => {
   }
   return (
     <>
-      <button className='m-5 white-btn bg-white text-black' onClick={signInWithGoogle}>
+      <button
+        className='m-5 white-btn bg-white text-black'
+        onClick={signInWithGoogle}
+      >
         <img src={"/img/google.png"} className='w-[30px] mr-[10px]' />
         Sign in with Google
       </button>

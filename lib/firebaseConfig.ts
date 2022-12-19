@@ -94,9 +94,6 @@ export function postToJSON(doc: any) {
  * @param {string} province
  */
 export async function getPostsWithProvince(province: string) {
-  // userRef = collection("user")
-  // const query = userRef.where("username", "==", province).limit(1)
-
   const q = query(
     collection(firestore, "provinces"),
     where("province", "==", province),

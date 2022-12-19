@@ -4,8 +4,8 @@ import {
   typesMap,
   ServicesType,
 } from "../../utils/types"
-import Button from "../base/Button"
-import Icon from "../base/Icon"
+// import Button from "../base/Button"
+// import Icon from "../base/Icon"
 
 import { usePopper } from "react-popper"
 
@@ -15,7 +15,7 @@ export default function SpotsType({
 }: {
   filters: FiltersType
   setFilters: (filters: FiltersType) => void
-}) {
+}): JSX.Element {
   const [refButton, setRefButton] = useState<HTMLButtonElement | null>(null)
   const [refPopper, setRefPopper] = useState<HTMLDivElement | null>(null)
   const { styles, attributes } = usePopper(refButton, refPopper, {

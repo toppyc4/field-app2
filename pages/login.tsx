@@ -15,11 +15,11 @@ import { signOut } from "firebase/auth"
 import debounce from "lodash.debounce"
 import toast from "react-hot-toast"
 
-export default function LoginForm() {
+export default function login(): JSX.Element {
   const router = useRouter()
   const { user, username } = useContext(UserContext)
-  console.log('user: ', user)
-  console.log('username: ', username)
+  console.log("[login]user: ", user)
+  console.log("[login]username: ", username)
 
   if (user && username) {
     router.push("/main")
@@ -28,13 +28,13 @@ export default function LoginForm() {
   return (
     <main className='h-[100vh]'>
       {user && !username && <UsernameForm />}
+      <h1>what?</h1>
     </main>
   )
 }
 
-
 // Sign out btn
-export const SignOutButton = () => {
+export const SignOutButton = (): JSX.Element => {
   const router = useRouter()
   return (
     <button
@@ -127,7 +127,7 @@ function UsernameForm(): JSX.Element | null {
   )
 
   return (
-    !username && (
+    (!username && (
       <>
         <nav className='flex justify-end'>
           <button
@@ -180,11 +180,20 @@ function UsernameForm(): JSX.Element | null {
           </div>
         </section>
       </>
-    ) || null
+    )) ||
+    null
   )
 }
 
-function UsernameMessage({ username, isValid, loading }: {username: string, isValid: boolean, loading: boolean}): JSX.Element {
+function UsernameMessage({
+  username,
+  isValid,
+  loading,
+}: {
+  username: string
+  isValid: boolean
+  loading: boolean
+}): JSX.Element {
   if (loading) {
     return <p>Checking...</p>
   } else if (isValid) {

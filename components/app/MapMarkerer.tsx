@@ -2,16 +2,17 @@ import { useRef, useEffect, useState, useMemo, useCallback } from "react"
 import { getGeocode, getLatLng } from "use-places-autocomplete"
 // import { useLoadScript } from "@react-google-maps/api"
 import GoogleMapReact from "google-map-react"
+import { Address } from "../../utils/types"
 
 export default function MapMarkerer({
   address,
   miniMapCoor,
   setMiniMapCoor,
 }: {
-  address: string
+  address: Address
   miniMapCoor: { lat: number; lng: number }
   setMiniMapCoor: (miniMapCoor: { lat: number; lng: number }) => void
-}) {
+}): JSX.Element {
   // Load google map script
   //   const libraries = ["places", "drawing", "geometry"]
   // const { isLoaded } = useLoadScript({
@@ -36,22 +37,21 @@ export default function MapMarkerer({
   //   []
   // )
 
-  function handleClick() {
-    getGeocode({ address: address.address })
-      .then((results) => {
-        console.log("Geocode results: ", results[0])
-        const { lat, lng } = getLatLng(results[0])
-        console.log("📍 MiniMapCoor: ", { lat, lng })
-        setMiniMapCoor({ lat, lng })
-        // setShowMap(true)
-      })
-      .catch((error) => {
-        console.log("Error: ", error)
-        alert("Error: ", error)
-      })
+  function handleClick(): void {
+    // getGeocode({ address: address.address })
+    //   .then((results) => {
+    //     console.log("Geocode results: ", results[0])
+    //     const { lat, lng } = getLatLng(results[0])
+    //     console.log("📍 MiniMapCoor: ", { lat, lng })
+    //     setMiniMapCoor({ lat, lng })
+    //     // setShowMap(true)
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error: ", error)
+    //     alert("Error: ", error)
+    //   })
+    console.log("clicked")
   }
-
-  if (!isLoaded) return <div>Loading . . . </div>
 
   return (
     <div className='my-4'>
@@ -64,7 +64,7 @@ export default function MapMarkerer({
         </div>
         <div className='my-2 flex'>
           <p className='max-w-md'>
-            <b>address: </b> {address.address}
+            <b>address: </b> {address.formatted_address}
           </p>
           <button
             onClick={handleClick}
@@ -109,6 +109,7 @@ export default function MapMarkerer({
         >
           {miniMapCoor && (
             <div
+              //@ts-ignore
               lat={miniMapCoor.lat}
               lng={miniMapCoor.lng}
               className='absolute z-2'

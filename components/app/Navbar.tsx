@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useContext, useState, useEffect } from "react"
 import { UserContext } from "../../lib/context"
-import { SignOutButton } from "../../pages/loginForm"
+import { SignOutButton } from "../../pages/login"
 
 // import usePlacesAutocomplete from "use-places-autocomplete"
 

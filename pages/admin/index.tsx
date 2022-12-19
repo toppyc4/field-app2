@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react"
 
-const index = () => {
-  return (
-    <div>index</div>
-  )
+const index = (): JSX.Element => {
+  return <div>adminIndexPage</div>
 }
 
 export default index

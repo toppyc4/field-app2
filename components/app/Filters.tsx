@@ -8,6 +8,6 @@ export default function Filters({
 }: {
   filters: FiltersType
   setFilters: (filter: FiltersType) => void
-}) {
+}): JSX.Element {
   return <SpotsType filters={filters} setFilters={setFilters} />
 }

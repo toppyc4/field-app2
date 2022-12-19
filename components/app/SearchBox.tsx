@@ -1,4 +1,3 @@
-import Input from "../base/Input"
 import { useState } from "react"
 import useSWR from "swr"
 import AsyncSelect from "react-select/async"
@@ -23,7 +22,7 @@ export default function SearchBox({
   value: { [key: string]: any }
   setValue: (label: string, value: string) => void
   placeholder?: string
-}) {
+}): JSX.Element {
   const { theme } = useTheme()
   const hasMounted = useHasMounted()
   console.log("hasMounted:", hasMounted)

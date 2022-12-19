@@ -2,9 +2,9 @@ import { NextPage } from "next"
 import { useState, useEffect, useRef } from "react"
 
 import { Coord, Filters as FiltersType, Post, Address } from "../../utils/types"
-import Map from "../../Components/app/Map"
-import Navbar from "../../Components/app/Navbar"
-import Sidebar from "../../Components/app/Sidebar"
+import Map from "../../components/app/Map"
+import Navbar from "../../components/app/Navbar"
+import Sidebar from "../../components/app/Sidebar"
 
 const Home: NextPage = () => {
   const [address, setAddress] = useState<Address>({

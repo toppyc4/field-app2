@@ -16,10 +16,10 @@ import {
 // } from "react-firebase-hooks/firestore"
 import { useDocumentDataOnce } from "../../lib/hooks"
 import { UserContext } from "../../lib/context"
-import PostForm from "../../Components/app/PostForm"
-import AuthCheck from "../../Components/base/AuthCheck"
+import PostForm from "../../components/app/PostForm"
+import AuthCheck from "../../components/base/AuthCheck"
 
-export default function AdminPostPage() {
+export default function AdminPostPage(): JSX.Element {
   return (
     <AuthCheck>
       <nav className='sticky top-0 z-10 max-w-screen h-[8vh] bg-slate-800 px-[4vw] flex justify-btween items-center drops-shadow-lg'>
@@ -35,7 +35,7 @@ export default function AdminPostPage() {
   )
 }
 
-function PostManager() {
+function PostManager(): JSX.Element {
   const [preview, setPreview] = useState(false)
   const [admin, setAdmin] = useState(false)
 
@@ -45,7 +45,7 @@ function PostManager() {
 
   const postRef = doc(getFirestore(), "users", uid, "posts", slug)
   const [post] = useDocumentDataOnce(postRef)
-  
+
   const { username } = useContext(UserContext)
 
   console.log("postRef:", postRef)
@@ -70,11 +70,11 @@ function PostManager() {
               <p>Post ID: {post.slug}</p>
             </div>
             <PostForm
-              post={post}
-              postRef={postRef}
-              defaultValues={post}
-              preview={preview}
-              setPreview={setPreview}
+            // post={post}
+            // postRef={postRef}
+            // defaultValues={post}
+            // preview={preview}
+            // setPreview={setPreview}
             />
           </section>
 

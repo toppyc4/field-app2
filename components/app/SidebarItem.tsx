@@ -9,7 +9,7 @@ const SidebarItem = ({
 }: {
   post: Post
   setSelectedMarker: (marker: Post) => void
-}) => {
+}): JSX.Element => {
   function iconType(type: ServicesType) {
     if (type === "vacant_land") {
       return "/icon/solid/solid-field-stack.svg"
