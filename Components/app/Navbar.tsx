@@ -89,27 +89,26 @@ export default function Navbar({
 
       <div className='ml-auto mr-3 inline-block relative w-64'>
         <SearchBox
-          setAddress={setAddress}
-          // clearLocations={clearLocations}
-          // value={{
-          //   value: address.place_id,
-          //   label:
-          //     address.formatted_address == ""
-          //       ? "Search"
-          //       : address.formatted_address,
-          // }}
-          // setValue={(label, value) => {
-          //   getLatLng(value, (lat, lng) => {
-          //     const newAddress = address
-          //     newAddress.coords = { lat, lng }
-          //     newAddress.formatted_address = label
-          //     newAddress.place_id = value
-          //     console.log("[getLatLng]newAddress:", newAddress)
-          //     setAddress(newAddress)
-          //     console.log("[getLatLng]value:", value)
-          //   })
-          // }}
-          // placeholder='Search'
+          // setAddress={setAddress}
+          value={{
+            value: address.place_id,
+            label:
+              address.formatted_address == ""
+                ? "Search Google Map"
+                : address.formatted_address,
+          }}
+          setValue={(label, value) => {
+            getLatLng(value, (lat, lng) => {
+              const newAddress = address
+              newAddress.coords = { lat, lng }
+              newAddress.formatted_address = label
+              newAddress.place_id = value
+              console.log("[getLatLng]newAddress:", newAddress)
+              setAddress(newAddress)
+              console.log("[getLatLng]value:", value)
+            })
+          }}
+          placeholder='Search'
         />
         {/* <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
           <input

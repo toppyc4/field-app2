@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "@popperjs/core": "^2.11.6",
     "@reach/combobox": "^0.18.0",
     "@react-google-maps/api": "^2.17.0",
@@ -20,6 +21,7 @@
     "next": "latest",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
+    "react-cool-onclickoutside": "^1.7.0",
     "react-dom": "18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.40.0",

@@ -85,6 +85,7 @@ const Map = ({
   console.log("[Map]posts", posts)
   console.log("[Map]address", address)
   console.log("[Map]mapRef", mapRef)
+
   return (
     <div className='w-full h-full bg-white'>
       {drawingMap ? (
