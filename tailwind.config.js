@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "intro-field": "url('/img/field.png')",
+        "intro-field": "url('/img/field-painting.png')",
       },
     },
   },

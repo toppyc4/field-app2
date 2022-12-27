@@ -17,11 +17,13 @@ export default function Navbar({
   setDrawingMap,
   address,
   setAddress,
+  mapRef,
 }: {
   address: Address
   setAddress: (address: Address) => void
   drawingMap: boolean
   setDrawingMap: (drawingMap: boolean) => void
+  mapRef: React.MutableRefObject<null>
 }): JSX.Element {
   const { user, username } = useContext(UserContext)
 
@@ -79,6 +81,17 @@ export default function Navbar({
       </button>
     )
   }
+  useEffect(() => {
+    // @ts-ignore
+    mapRef.current.map_?.setCenter({
+      lat: address.coords?.lat,
+      lng: address.coords?.lng,
+    })
+    // @ts-ignore
+    mapRef.current.map_?.setZoom(13)
+    console.log("[Navbar] useEffect")
+  }, [address])
+
   return (
     <nav className='max-w-screen h-[8vh] bg-slate-800 px-[4vw] flex justify-btween items-center drops-shadow-lg'>
       <Link href='/'>
@@ -106,6 +119,7 @@ export default function Navbar({
               console.log("[getLatLng]newAddress:", newAddress)
               setAddress(newAddress)
               console.log("[getLatLng]value:", value)
+              console.log("[getLatLng]address:", address)
             })
           }}
           placeholder='Search'
@@ -129,7 +143,7 @@ export default function Navbar({
               src={user?.photoURL || "/img/question-mark-profile.jpg"}
               width={50}
               height={50}
-              alt='user profile picture'
+              alt='profile pic'
               className='mr-2 w-[56px] h-[56px] self-center cursor-pointer rounded-full'
               referrerPolicy='no-referrer'
             />

@@ -1,6 +1,6 @@
 import Link from "next/link"
 import ReactMarkdown from "react-markdown"
-import { Post } from "../../utils/types"
+import { Post, ServicesType } from "../../utils/types"
 
 export default function PostsFeed({
   posts,
@@ -33,12 +33,29 @@ function PostItem({
   post: Post
   admin: boolean
 }): JSX.Element {
-  console.log("post", post)
+  // console.log("[PostItem]post:", post)
+
+  function iconType(type: ServicesType) {
+    if (type === "vacant_land") {
+      return "/icon/solid/solid-field-stack.svg"
+    } else if (type === "real_estate") {
+      return "/icon/solid/solid-home.svg"
+    } else if (type === "property") {
+      return "/icon/solid/solid-property.svg"
+    } else if (type === "condomidium") {
+      return "/icon/solid/solid-condo.svg"
+    } else if (type === "product") {
+      return "/icon/solid/solid-truck.svg"
+    } else if (type === "service") {
+      return "/icon/solid/solid-service.svg"
+    }
+  }
+
   return (
     <div className='max-w-sm rounded overflow-hidden shadow-lg'>
       <img
-        className='max-w-sm max-h-lg'
-        src={post.photoUrl ? `${post.photoUrl}` : "/img/field.png"}
+        className='max-w-sm max-h-lg min-w-[25px] min-h-[25px] bg-white'
+        src={post.photoUrl ? `${post.photoUrl}` : "/pic/field.png"}
         alt=''
       />
       <div className='flex flex-col'>
@@ -53,12 +70,15 @@ function PostItem({
               <b className='text-md font-semiblod'>Price:</b> {post.price}
             </span>
           </div>
-          <ReactMarkdown className='my-2 p-2 max-h-36 overflow-auto bg-white text-slate-900 text-base'>
+          <ReactMarkdown className='my-2 p-2 max-h-36 overflow-auto border-2 border-black bg-teal-50 text-slate-900 text-base rounded-md'>
             {post.content}
           </ReactMarkdown>
           <div className='flex my-2 p-2 bg-gray-300 rounded-lg'>
             <img
-              src='/img/location-marker.svg'
+              src={
+                `${iconType(post.typeOfService)}` ||
+                "/icon/location-blue-marker.svg"
+              }
               className='m-1 w-[25px] h-[25px]'
             />
             <p>

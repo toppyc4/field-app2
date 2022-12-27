@@ -27,6 +27,7 @@ const Home: NextPage = () => {
   const [drawingMap, setDrawingMap] = useState(false)
   const [selectedMarker, setSelectedMarker] = useState<Post | null>(null)
   const itemsRef = useRef<HTMLDivElement>(null)
+  const mapRef = useRef(null)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -46,6 +47,7 @@ const Home: NextPage = () => {
         setAddress={setAddress}
         drawingMap={drawingMap}
         setDrawingMap={setDrawingMap}
+        mapRef={mapRef}
       />
       <main className='h-[92vh] flex relative'>
         <div className='w-[40%]'>
@@ -68,6 +70,7 @@ const Home: NextPage = () => {
             drawingMap={drawingMap}
             selectedMarker={selectedMarker}
             setSelectedMarker={setSelectedMarker}
+            mapRef={mapRef}
             // itemsRef={itemsRef}
           />
         </div>

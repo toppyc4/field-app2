@@ -12,8 +12,14 @@ import toast from "react-hot-toast"
 
 export default function Intro(): JSX.Element {
   return (
-    <div className='bg-intro-field h-[100vh] bg-fixed overflow-hidden flex'>
-      <div className='mt-48 mb-auto ml-32'>
+    <div className='h-[100vh] bg-fixed overflow-hidden flex'>
+      <Image
+        fill
+        className='object-center object-cover pointer-events-none'
+        src={"/pic/field.png"}
+        alt='field bg'
+      />
+      <div className='mt-48 mb-auto ml-32 z-10'>
         <div className='m-5'>
           <h1 className='text-8xl font-bold'>Field</h1>
           <span className='text-4xl font-semibold'>
@@ -56,7 +62,13 @@ const SignInButton = (): JSX.Element => {
         className='m-5 white-btn bg-white text-black'
         onClick={signInWithGoogle}
       >
-        <img src={"/img/google.png"} className='w-[30px] mr-[10px]' />
+        <Image
+          src={"/icon/google.png"}
+          className='w-[30px] mr-[10px]'
+          alt='sign-in with google logo'
+          width={30}
+          height={30}
+        />
         Sign in with Google
       </button>
       {/* <button

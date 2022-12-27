@@ -25,11 +25,25 @@ const SidebarItem = ({
       return "/icon/solid/solid-service.svg"
     }
   }
+
+  function ScrollIntoView() {
+    const div = window.document.getElementById(
+      `p${post.address.coordinate.lat + post.address.coordinate.lng}`
+    )
+    div?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    })
+  }
+
   return (
     <div
       className='max-w-sm max-h-[100vh] my-[0.5rem] bg-neutral-100 overflow-hidden shadow-lg'
-      onClick={() => setSelectedMarker(post)}
       id={`p${post.address.coordinate.lat + post.address.coordinate.lng}`}
+      onClick={() => {
+        ScrollIntoView()
+        setSelectedMarker(post)
+      }}
     >
       <div className='relative w-full min-h-[20vh] bg-white'>
         {/* TODO: Click on photo and scroll into view instead of link */}
@@ -41,7 +55,7 @@ const SidebarItem = ({
                 ? `${post.photoUrl}`
                 : "/icon/location-blue-marker.svg"
             }
-            layout='fill'
+            fill
             alt={`${post.title}`}
           />
         </Link>
@@ -65,10 +79,13 @@ const SidebarItem = ({
           <div className='relative w-[25px] h-[25px] mt-0.5 mr-0.5'>
             <Image
               //@ts-ignore
-              src={iconType(post.typeOfService)}
+              src={
+                iconType(post.typeOfService) ||
+                "/icon/location-black-marker.svg"
+              }
               className=''
               alt='location-icon'
-              layout='fill'
+              fill
             />
           </div>
 

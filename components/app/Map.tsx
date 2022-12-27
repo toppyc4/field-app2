@@ -18,18 +18,18 @@ const Map = ({
   drawingMap,
   selectedMarker,
   setSelectedMarker,
-}: // itemsRef,
-{
+  mapRef,
+}: {
   posts: Post[] | null
   address: Address
   setAddress: (address: Address) => void
   drawingMap: boolean
   selectedMarker: Post | null
   setSelectedMarker: (marker: Post) => void
+  mapRef: React.MutableRefObject<null>
   // itemsRef: React.MutableRefObject<HTMLDivElement | null>
 }): JSX.Element => {
   const { data, error } = useSWR("/api/mapURL", fetcher)
-  const mapRef = useRef(null)
   const hasMounted = useHasMounted()
   const options = useMemo(
     () => ({
@@ -82,9 +82,10 @@ const Map = ({
   //   }
   // }
 
-  console.log("[Map]posts", posts)
-  console.log("[Map]address", address)
-  console.log("[Map]mapRef", mapRef)
+  console.log("[Map]posts:", posts)
+  console.log("[Map]address:", address)
+  console.log("[Map]mapRef:", mapRef)
+  console.log("[Map]data:", data)
 
   return (
     <div className='w-full h-full bg-white'>
@@ -103,6 +104,7 @@ const Map = ({
               lat: address.coords?.lat || 13.7563,
               lng: address.coords?.lng || 100.5018,
             }}
+            options={options}
             center={address.coords}
             defaultZoom={13}
           >
@@ -152,7 +154,10 @@ const Map = ({
                 >
                   <Image
                     // @ts-ignore
-                    src={iconType(post.typeOfService)}
+                    src={
+                      iconType(post.typeOfService) ||
+                      "/icon/location-black-marker.svg"
+                    }
                     width={20}
                     height={20}
                     alt='marker'

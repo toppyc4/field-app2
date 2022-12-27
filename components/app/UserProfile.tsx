@@ -1,4 +1,5 @@
 import React from "react"
+// import { User } from "../../utils/types"
 
 export default function UserProfile({
   user,
@@ -7,12 +8,13 @@ export default function UserProfile({
   setEditing,
 }: {
   user: any
-  admin: any
+  admin: boolean
   editing: boolean
-  setEditing: any
+  setEditing: (editing: boolean) => void
 }): JSX.Element {
-  // console.log("UserProfile's user prop: ", user)
+  console.log("[UserProfile] user: ", user)
   function handleSetEdit(): void {
+    //@ts-ignore tcs is whiny here, but my app work . . .
     setEditing((prevState: boolean) => !prevState)
   }
   return (
@@ -20,13 +22,13 @@ export default function UserProfile({
       {admin && (
         <button
           className='bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-solid border-b-4 border-blue-700 hover:border-blue-500 rounded ml-auto'
-          onClick={handleSetEdit}
+          onClick={() => handleSetEdit()}
         >
           {editing ? "Hide Form" : "Update Profile"}
         </button>
       )}
       <img
-        src={user.photoURL || "/img/question-mark-profile.jpg"}
+        src={user?.photoURL || "/img/question-mark-profile.jpg"}
         className='w-[20%] mx-auto mb-1 max-w-[150px] block rounded-full'
       />
       <p>
