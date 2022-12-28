@@ -154,7 +154,7 @@ export default function Post(props: any): JSX.Element {
               {currentUser?.uid === post.uid && (
                 <Link
                   href={`/admin/${post.slug}`}
-                  className=' mr-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-1 px-2 border-solid border-b-4 border-emerald-700 hover:border-lime-500 rounded cursor-pointer'
+                  className='mr-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-1 px-2 border-solid border-b-4 border-emerald-700 hover:border-lime-500 rounded cursor-pointer'
                 >
                   <div className=''>Edit Post</div>
                 </Link>

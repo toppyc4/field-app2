@@ -92,10 +92,7 @@ function PostItem({
           </div>
           <div className='flex content-center items-center justify-center'>
             <div className='bg-lime-500 hover:bg-lime-400 text-white font-bold py-1 px-2 border-solid border-b-4 border-lime-700 hover:border-lime-500 rounded cursor-pointer'>
-              <Link
-                href={`/${post.username}`}
-                className='flex items-center mt-2'
-              >
+              <Link href={`/${post.username}`} className='flex items-center'>
                 @ {post.username}
               </Link>
             </div>
@@ -104,14 +101,14 @@ function PostItem({
             </span>
           </div>
         </div>
-        <footer className='mt-auto mb-1 px-6 pt-3 pb-2 flex'>
+        <footer className='mt-auto mb-4 px-6 pt-3 pb-2 flex'>
           {admin && (
-            <div className='text-blue-600 underline cursor-pointer'>
+            <div className=' cursor-pointer'>
               <Link
                 href={`/admin/${post.slug}`}
-                className='text-blue-600 underline  cursor-pointer'
+                className='mr-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-1 px-2 border-solid border-b-4 border-emerald-700 hover:border-lime-500 rounded cursor-pointer'
               >
-                Edit
+                Edit Post
               </Link>
             </div>
           )}

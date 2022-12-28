@@ -108,7 +108,7 @@ const Map = ({
             center={address.coords}
             defaultZoom={13}
           >
-            <div
+            {/* <div
               className='absolute z-1 hover:z-2'
               //@ts-ignore
               lat={address.coords?.lat}
@@ -120,7 +120,7 @@ const Map = ({
                 height={20}
                 alt='marker'
               />
-            </div>
+            </div> */}
 
             {posts?.map((post, i) => {
               return (

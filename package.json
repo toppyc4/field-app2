@@ -31,6 +31,7 @@
     "use-places-autocomplete": "^4.0.0"
   },
   "devDependencies": {
+    "@types/lodash.kebabcase": "^4.1.7",
     "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
