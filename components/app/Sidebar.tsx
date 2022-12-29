@@ -10,35 +10,29 @@ import { toast } from "react-hot-toast"
 
 export default function Sidebar({
   posts,
-  // setPosts,
+
   filters,
   setFilters,
   selectedMarker,
   setSelectedMarker,
   setAddress,
   drawingMap,
-}: // itemsRef,
-{
+}: {
   posts: Post[] | null
-  // setPosts: (posts: Post[]) => void
+
   filters: FiltersType
   setFilters: (filters: FiltersType) => void
   selectedMarker: Post | null
   setSelectedMarker: (marker: Post) => void
   setAddress: (address: Address) => void
   drawingMap: boolean
-  // itemsRef: React.RefObject<HTMLDivElement>
-  // type: ServicesType | null
 }): JSX.Element {
   const router = useRouter()
-  // const { query } = useRouter()
+
   const [elRefs, setElRefs] = useState([])
   const { theme } = useTheme()
 
-  const getProvinceCoord = async (
-    // this function is only allow to run with province in string type
-    province: string | null
-  ) => {
+  const getProvinceCoord = async (province: string) => {
     const response = await fetch("/api/autocomplete2/" + province)
     const data = await response.json()
     const provinceCoord = data.candidates[0].geometry.location
@@ -46,12 +40,11 @@ export default function Sidebar({
     setAddress({ formatted_address: provinceAddrs, coords: provinceCoord })
   }
 
-  const search = async (): Promise<void> => {
-    getProvinceCoord(filters.province)
+  const search = async () => {
+    getProvinceCoord(filters.province!)
     router.push({
       pathname: `/main/${filters.province}/`,
       query: {
-        // ...router.query,
         services: Object.keys(filters.typeOfService)
           .filter(
             (key) =>
@@ -60,21 +53,8 @@ export default function Sidebar({
           .join(","),
       },
     })
-    console.log("search")
   }
 
-  // useEffect(() => {
-  //   const refs = Array(posts?.length)
-  //     //@ts-ignore going to ignore .fill() for now Let see how MeetMeInTheMiddle did it
-  //     .fill()
-  //     .map((_, i) => elRefs[i] || createRef())
-
-  //   setElRefs(refs)
-  // }, [posts])
-
-  console.log("[Sidebar] posts: ", posts)
-  console.log("[Sidebar] filters:", filters)
-  console.log("[Sidebar] filters.province:", filters.province)
   return (
     <div className='h-[92vh] pt-2 px-4 bg-slate-100'>
       {/* filter div */}
@@ -223,17 +203,13 @@ export default function Sidebar({
         </button>
       </div>
 
-      <div
-        className='grid-list-items'
-        //  ref={itemsRef}
-      >
+      <div className='grid-list-items'>
         {posts?.map((post, i) => (
           <div className='m-2' key={i}>
             <SidebarItem
               key={i}
               post={post}
               setSelectedMarker={setSelectedMarker}
-              // itemsRef={elRefs[i]}
             />
           </div>
         ))}

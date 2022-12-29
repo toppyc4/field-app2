@@ -48,37 +48,14 @@ const HomeProvincePage: NextPage = ({
     const provinceCoord = data.candidates[0].geometry.location
     const provinceAddrs = data.candidates[0].formatted_address
     setAddress({ formatted_address: provinceAddrs, coords: provinceCoord })
-    console.log("getProvinceCoord")
   }
 
-  // can cause weird coordinate
-  useEffect(() => {
-    console.log("address.coords: ", address.coords)
-    console.log("province.coordinate: ", province.coordinate)
-    if (address.coords != province.coordinate) {
-      getProvinceCoord(province.province)
-    }
-  }, [province])
-
-  //   useEffect(() => {
-  //     const newQuery = {
-  //       type: Object.keys(filters.typeOfService),
-  //     }
-
-  //     // check if query objects are same
-  //     if (router.query.type !== newQuery.type) {
-  //       router.push({
-  //         pathname: `/main/${filters.province}/`,
-  //         query: {
-  //           ...router.query,
-  //           type: Object.keys(filters.typeOfService),
-  //         },
-  //       })
-  //     }
-  //   }, [filters])
-
-  console.log("[HomeProvincePage] posts: ", posts)
-  console.log("[HomeProvincePage] province: ", province)
+  // // Try matching province coords, but can cause weird coordinate
+  // useEffect(() => {
+  //   if (address.coords != province.coordinate) {
+  //     getProvinceCoord(province.province)
+  //   }
+  // }, [province])
 
   return (
     <>
@@ -111,7 +88,6 @@ const HomeProvincePage: NextPage = ({
             selectedMarker={selectedMarker}
             setSelectedMarker={setSelectedMarker}
             mapRef={mapRef}
-            // itemsRef={itemsRef}
           />
         </div>
       </main>
@@ -155,7 +131,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       )
       posts = (await getDocs(postQuery)).docs.map(postToJSON)
     } else {
-      console.log("all service is actived but have problem querying data")
+      console.log(
+        "[Province page] all service is actived but have problem querying data"
+      )
     }
   } else {
     typeOfService["vacant_land"] = true

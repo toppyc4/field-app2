@@ -12,10 +12,9 @@ export default function UserProfile({
   editing: boolean
   setEditing: (editing: boolean) => void
 }): JSX.Element {
-  console.log("[UserProfile] user: ", user)
   function handleSetEdit(): void {
     //@ts-ignore tcs is whiny here, but my app work . . .
-    setEditing((prevState: boolean) => !prevState)
+    setEditing((edit: boolean) => !edit)
   }
   return (
     <div className='p-10 flex flex-col content-center text-center bg-white'>

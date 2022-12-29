@@ -4,7 +4,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  console.log("running getProvince from api")
   const { province } = req.query
   if (!province) {
     res.status(400).json({ error: "Missing province" })

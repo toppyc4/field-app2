@@ -33,8 +33,6 @@ function PostItem({
   post: Post
   admin: boolean
 }): JSX.Element {
-  // console.log("[PostItem]post:", post)
-
   function iconType(type: ServicesType) {
     if (type === "vacant_land") {
       return "/icon/solid/solid-field-stack.svg"

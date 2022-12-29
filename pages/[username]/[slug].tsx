@@ -28,7 +28,6 @@ export async function getStaticProps({ params }: { params?: any }) {
   let path
 
   if (userDoc) {
-    console.log("userDoc.ref", userDoc.ref)
     const postRef = doc(getFirestore(), userDoc.ref.path, "posts", slug)
 
     post = postToJSON(await getDoc(postRef))
@@ -103,21 +102,6 @@ export default function Post(props: any): JSX.Element {
       return "/icon/solid/solid-service.svg"
     }
   }
-  // const onLoad = useCallback(
-  //   // setMap,
-  //   (map) => (mapRef.current = map),
-  //   []
-  // )
-
-  // if (!isLoaded) return <div>Loading . . . </div>
-
-  console.log("[username slug] post", props.post)
-  console.log("[username slug] path", props.path)
-  console.log("[username slug] post coordinate:", props.post.address.coordinate)
-  // const createdAt =
-  //   typeof post?.createdAt === "number"
-  //     ? new Date(post.createdAt)
-  //     : post.createdAt.toDate()
 
   return (
     <div>
@@ -268,7 +252,6 @@ export default function Post(props: any): JSX.Element {
                 defaultZoom={13}
               >
                 <div
-                  // className='cursor-pointer'
                   //@ts-ignore
                   lat={post.address.coordinate.lat}
                   lng={post.address.coordinate.lng}
@@ -286,23 +269,6 @@ export default function Post(props: any): JSX.Element {
                 </div>
               </GoogleMapReact>
             </div>
-            {/* <GoogleMap
-              zoom={12}
-              center={post.address.coordinate}
-              mapContainerClassName='mt-4 mx-auto w-[120vh] h-[69vh]'
-              options={options}
-              onLoad={onLoad}
-              // onCenterChanged={(e) => {
-              //   console.log("e", e)
-              //   setMiniMapCoor({ lat: e.center.lat, lng: e.center.lng })
-              // }}
-            >
-              <MarkerF
-                position={post.address.coordinate}
-                icon={"/img/map-pin-black.svg"}
-                className='abosolute z-1'
-              />
-            </GoogleMap> */}
           </div>
         </div>
       </main>

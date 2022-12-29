@@ -47,8 +47,6 @@ export async function getServerSideProps({ query: urlQuery }: { query: any }) {
       limit(20)
     )
     posts = (await getDocs(postQuery)).docs.map(postToJSON)
-    // console.log("how many times is this called?")
-    // console.log("posts:", posts)
   }
   return {
     props: { user, posts }, // will be passed to the page component as props
@@ -64,23 +62,13 @@ export default function UserProfilePage({
 }): JSX.Element {
   const [admin, setAdmin] = useState(false)
   const [editing, setEditing] = useState(false)
-  // const auth = getAuth()
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     console.log("user", user)
-  //     const uid = user.uid
-  //     console.log("uid", uid)
-  //   }
-  // })
+
   const { username } = useContext(UserContext)
   useEffect(() => {
     {
       username === user.username && setAdmin(true)
     }
   }, [])
-
-  console.log("userProp", user)
-  console.log("posts", posts)
 
   return (
     <div>

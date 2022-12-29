@@ -1,5 +1,3 @@
-import { useState } from "react"
-import useSWR from "swr"
 import AsyncSelect from "react-select/async"
 import { useTheme } from "next-themes"
 import useHasMounted from "../../utils/useHasMounted"
@@ -25,8 +23,9 @@ export default function SearchBox({
 }): JSX.Element {
   const { theme } = useTheme()
   const hasMounted = useHasMounted()
-  console.log("hasMounted:", hasMounted)
-  console.log("theme:", theme)
+  console.log("[Searchbox]hasMounted:", hasMounted)
+  console.log("[Searchbox]theme:", theme)
+
   return (
     <>
       {hasMounted && (

@@ -9,6 +9,7 @@ import { SignOutButton } from "../../pages/login"
 import SearchBox from "./SearchBox"
 import { useRouter } from "next/router"
 import { Address, Coord, Post } from "../../utils/types"
+// import useHasMounted from "../../utils/useHasMounted"
 
 // import { Autocomplete } from "@react-google-maps/api"
 
@@ -26,6 +27,7 @@ export default function Navbar({
   mapRef: React.MutableRefObject<null>
 }): JSX.Element {
   const { user, username } = useContext(UserContext)
+  // const hasMounted = useHasMounted()
 
   const getLatLng = async (
     placeId: string,
@@ -35,7 +37,6 @@ export default function Navbar({
     const data = await response.json()
     const { lat, lng } = data.results[0].geometry.location
     const { formatted_address } = data.results[0]
-    console.log("[getLatLng]data:", data)
     setValue(lat, lng, formatted_address)
     // setAddress
   }
@@ -81,16 +82,6 @@ export default function Navbar({
       </button>
     )
   }
-  useEffect(() => {
-    // @ts-ignore
-    mapRef.current.map_?.setCenter({
-      lat: address.coords?.lat,
-      lng: address.coords?.lng,
-    })
-    // @ts-ignore
-    mapRef.current.map_?.setZoom(13)
-    console.log("[Navbar] useEffect")
-  }, [address])
 
   return (
     <nav className='max-w-screen h-[8vh] bg-slate-800 px-[4vw] flex justify-btween items-center drops-shadow-lg'>
@@ -102,7 +93,7 @@ export default function Navbar({
 
       <div className='ml-auto mr-3 inline-block relative w-64'>
         <SearchBox
-          // setAddress={setAddress}
+          // the value is placeId of selected place
           value={{
             value: address.place_id,
             label:
@@ -116,10 +107,9 @@ export default function Navbar({
               newAddress.coords = { lat, lng }
               newAddress.formatted_address = label
               newAddress.place_id = value
-              console.log("[getLatLng]newAddress:", newAddress)
               setAddress(newAddress)
-              console.log("[getLatLng]value:", value)
-              console.log("[getLatLng]address:", address)
+              // @ts-ignore
+              mapRef.current.map_?.panTo(newAddress.coords)
             })
           }}
           placeholder='Search'

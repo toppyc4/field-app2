@@ -4,8 +4,6 @@ import {
   typesMap,
   ServicesType,
 } from "../../utils/types"
-// import Button from "../base/Button"
-// import Icon from "../base/Icon"
 
 import { usePopper } from "react-popper"
 

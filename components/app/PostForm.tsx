@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 // import Link from "next/link"
 import MapMarkerer from "./MapMarkerer"
-// import AddressForm from "./AddressForm"
 import ImageUploader from "./ImageUploader"
 import { Post, ServicesType, ProvincesType } from "../../utils/types"
 
@@ -112,31 +111,7 @@ export default function PostForm({
 
   const { isDirty } = formState
 
-  function toastAlert() {
-    // toast.custom((t) => (
-    //   <div className='w-[40vh]'>
-    //     <div className='bg-red-500 text-white font-bold rounded-t px-4 py-2'>
-    //       Are you sure?
-    //     </div>
-    //     <div className='flex border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700'>
-    //       <p>This cannot be undo</p>
-    //       <button
-    //         type='submit'
-    //         className='ml-auto mr-4 p-1'
-    //         onClick={deletePost}
-    //       >
-    //         Yes
-    //       </button>
-    //       <button
-    //         type='button'
-    //         className=' mx-2 p-1'
-    //         onClick={() => toast.dismiss(t.id)}
-    //       >
-    //         No
-    //       </button>
-    //     </div>
-    //   </div>
-    // ))
+  function deleteWarning() {
     toast((t) => (
       <div className='bg- w-[30vh] flex justify-center align-center content-center'>
         <h1 className='font-bold text-lg my-auto'>Are you sure?</h1>
@@ -239,9 +214,7 @@ export default function PostForm({
     await batch
       .commit()
       .then(() => {
-        // toast.success("batch!, updated")
         toast.success("Post updated successfully!")
-        // router.push("/main")
       })
       .catch((err) => alert("Commit Batch Error:" + err))
 
@@ -740,8 +713,7 @@ export default function PostForm({
           <button
             type='button'
             className='font-semibold p-1 bg-red-700 border-b-4 border-black hover:bg-red-500  rounded-lg disabled:opacity-75'
-            // disabled={true}
-            onClick={toastAlert}
+            onClick={deleteWarning}
           >
             Delete Post
           </button>

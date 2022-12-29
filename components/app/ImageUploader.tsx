@@ -20,9 +20,6 @@ export default function ImageUploader({
     const file = Array.from(e.target.files)[0] as Blob
     const extension = file.type.split("/")[1]
 
-    console.log("file", file)
-    console.log("extension:", extension)
-
     // Makes reference to the storage bucket location
     const uid: any = auth?.currentUser?.uid
     const fileRef = ref(storage, `uploads/${uid}/${Date.now()}.${extension}`)

@@ -27,7 +27,6 @@ const Map = ({
   selectedMarker: Post | null
   setSelectedMarker: (marker: Post) => void
   mapRef: React.MutableRefObject<null>
-  // itemsRef: React.MutableRefObject<HTMLDivElement | null>
 }): JSX.Element => {
   const { data, error } = useSWR("/api/mapURL", fetcher)
   const hasMounted = useHasMounted()
@@ -75,18 +74,6 @@ const Map = ({
     }
   }
 
-  // function handleClick(position: { lat: number; lng: number }, post: Post) {
-  //   if (selectedMarker && mapRef.current) {
-  //   mapRef.current.map_?.panTo(selectedMarker.address.coordinate)
-  //   // mapRef.current?.panTo(position)
-  //   }
-  // }
-
-  console.log("[Map]posts:", posts)
-  console.log("[Map]address:", address)
-  console.log("[Map]mapRef:", mapRef)
-  console.log("[Map]data:", data)
-
   return (
     <div className='w-full h-full bg-white'>
       {drawingMap ? (
@@ -108,20 +95,6 @@ const Map = ({
             center={address.coords}
             defaultZoom={13}
           >
-            {/* <div
-              className='absolute z-1 hover:z-2'
-              //@ts-ignore
-              lat={address.coords?.lat}
-              lng={address.coords?.lng}
-            >
-              <Image
-                src={"/icon/location-black-marker.svg"}
-                width={20}
-                height={20}
-                alt='marker'
-              />
-            </div> */}
-
             {posts?.map((post, i) => {
               return (
                 <div
@@ -132,12 +105,6 @@ const Map = ({
                   key={i}
                   onClick={() => {
                     if (posts) {
-                      // const div = itemsRef.current.querySelector(
-                      //   `div#p${
-                      //     post.address.coordinate.lat +
-                      //     post.address.coordinate.lng
-                      //   }`
-                      // )
                       const div = window.document.getElementById(
                         `p${
                           post.address.coordinate.lat +
@@ -167,63 +134,6 @@ const Map = ({
             })}
           </GoogleMapReact>
         </div>
-        // <GoogleMap
-        //   zoom={zoomLv}
-        //   //@ts-ignore
-        //   onZoomChanged={(e: any) => {
-        //     if (map === null) {
-        //       return
-        //     }
-        //     //@ts-ignore
-        //     if (map.zoom !== zoomLv) {
-        //       setZoomLv(e)
-        //       return
-        //     }
-        //   }}
-        //   center={coordinates}
-        //   mapContainerClassName='w-full h-[92vh]'
-        //   options={options}
-        //   onLoad={
-        //     (m: any) => setMap(m)
-        //   }
-        // >
-
-        //   {posts?.map((post, i) => {
-        //     // const markerLetter = String.fromCharCode(
-        //     //   "A".charCodeAt(0) + (i % 26)
-        //     // )
-
-        //     const [iconType, setIconType] = useState('')
-        //     useEffect(() => {
-        //       if (post.typeOfService === "Vacant Land") {
-        //             setIconType("/Markers/solid/field-stack-marker.svg")
-        //           } else if (post.typeOfService === "Real Estate") {
-        //             setIconType("/Markers/solid/home-marker.svg")
-        //           } else if (post.typeOfService === "Property") {
-        //             setIconType("/Markers/solid/building-storefront-marker.svg")
-        //           } else if (post.typeOfService === "Service") {
-        //             setIconType("/Markers/solid/truck-marker.svg")
-        //           }
-        //     }, [])
-        //     console.log('iconType: ', iconType)
-        //       // const iconStyle = iconType(post.typeOfService)
-
-        //     return (
-        //       <MarkerF
-        //         position={post.address.coordinate}
-        //         icon={iconType
-        //         //   post.typeOfService === 'Vacant Land' ? '/Markers/solid/field-stack-marker.svg'
-        //         // : post.typeOfService === 'Real Estate' ? '/Markers/solid/home-marker.svg'
-        //         // : post.typeOfService === 'Property' ? '/Markers/solid/building-storefront-marker.svg'
-        //         // : post.typeOfService === 'Service' ? '/Markers/solid/truck-marker.svg' : undefined
-        //       }
-        //         key={post.address.coordinate.lat + post.address.coordinate.lng}
-        //         // className='abosolute z-1 cursor-pointer'
-        //         onClick={() => handleClick(post.address.coordinate, i)}
-        //       />
-        //     )
-        //   })}
-        // </GoogleMap>
       )}
     </div>
   )

@@ -21,7 +21,6 @@ export default function MapMarkerer({
         const { lat, lng } = getLatLng(results[0])
         console.log("📍 MiniMapCoor: ", { lat, lng })
         setMiniMapCoor({ lat, lng })
-        // setShowMap(true)
       })
       .catch((error) => {
         console.log("[MapMarkerer, handleClick()]:Error: ", error)
@@ -60,7 +59,6 @@ export default function MapMarkerer({
           defaultCenter={miniMapCoor}
           center={miniMapCoor}
           defaultZoom={15}
-          //   options={""}
           onChange={(e) => {
             console.log("e", e)
             setMiniMapCoor({ lat: e.center.lat, lng: e.center.lng })

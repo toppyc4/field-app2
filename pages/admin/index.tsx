@@ -205,23 +205,6 @@ function CreateNewPost() {
       })
       .catch((err) => alert("Commit Batch Error:" + err))
 
-    // Tip: give all fields a default value here
-    // const data = {
-    //   title,
-    //   slug,
-    //   uid,
-    //   username,
-    //   published: false,
-    //   address: {},
-    //   province: "",
-    //   typeOfService: "",
-    //   content: "#hello girls",
-    //   createdAt: serverTimestamp(),
-    //   updatedAt: serverTimestamp(),
-    // }
-
-    // await setDoc(userDoc, data)
-
     toast.success("Post Created!")
 
     // Imperative navigation after doc is set
@@ -240,8 +223,6 @@ function CreateNewPost() {
           {/* Title */}
           <strong>Title:</strong>
           <input
-            // value={title}
-            // onChange={(e) => setTitle(e.target.value)}
             placeholder='Bangkok Art & Culture Center'
             className='appearance-none block w-full bg-gray-200 text-3xl text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
             {...register("title", {

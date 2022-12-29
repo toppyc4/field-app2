@@ -48,14 +48,8 @@ function PostManager(): JSX.Element {
 
   const { username } = useContext(UserContext)
 
-  console.log("postRef:", postRef)
-  console.log("post:", post)
-  console.log("admin:", admin)
-  console.log("username:", username)
-
   useEffect(() => {
     username === post?.username && setAdmin(true)
-    console.log("check admin")
   }, [username, post])
 
   return (
