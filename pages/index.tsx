@@ -19,7 +19,7 @@ export default function Intro(): JSX.Element {
         src={"/pic/field.png"}
         alt='field bg'
       />
-      <div className='mt-48 mb-auto ml-32 z-10'>
+      <div className='mt-48 mb-auto ml-12 xl:ml-20 2xl:ml-32 z-10'>
         <div className='m-5'>
           <h1 className='text-8xl font-bold'>Field</h1>
           <span className='text-4xl font-semibold'>

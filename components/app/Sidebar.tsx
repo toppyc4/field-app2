@@ -10,7 +10,6 @@ import { toast } from "react-hot-toast"
 
 export default function Sidebar({
   posts,
-
   filters,
   setFilters,
   selectedMarker,
@@ -19,7 +18,6 @@ export default function Sidebar({
   drawingMap,
 }: {
   posts: Post[] | null
-
   filters: FiltersType
   setFilters: (filters: FiltersType) => void
   selectedMarker: Post | null
@@ -60,16 +58,16 @@ export default function Sidebar({
       {/* filter div */}
       <div className='border-b-2 border-slate-400'>
         <div className='flex'>
-          <h1 className='text-3xl font-bold ml-2'>
+          <h1 className='text-2xl xl:text-3xl font-bold ml-2'>
             {filters.province ? filters.province : "Province"}
           </h1>
-          <span className='my-auto ml-auto mr-2'>
+          <span className='text-base my-auto ml-auto mr-2'>
             - - - {posts?.length || 0} result(s) founded{" "}
           </span>
         </div>
 
         {/* province-Selector, type-Selector */}
-        <div className='grid-list-selector'>
+        <div className='grid grid-cols-2 gap-1'>
           <div className='relative mx-auto'>
             <label className='font-medium'> province: </label>
 
@@ -82,7 +80,7 @@ export default function Sidebar({
                   typeOfService: { ...filters.typeOfService },
                 })
               }}
-              className='block appearance-none w-64 bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight cursor-pointer focus:outline-none focus:shadow-outline'
+              className='block appearance-none w-24 lg:w-36 xl:w-52 2xl:w-64 bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight cursor-pointer focus:outline-none focus:shadow-outline'
               defaultValue={"none"}
             >
               <option value='none' disabled hidden>
@@ -170,7 +168,7 @@ export default function Sidebar({
               <option value='Yala'>Yala (ยะลา)</option>
             </select>
 
-            <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center pt-6 px-2 text-gray-700'>
+            <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center pt-2 lg:pt-4 xl:pt-6 px-0.5 lg:px-1 xl:px-2 text-gray-700'>
               <svg
                 className='fill-current h-4 w-4'
                 xmlns='http://www.w3.org/2000/svg'
@@ -215,13 +213,17 @@ export default function Sidebar({
         ))}
 
         {!posts && (
-          <div className='flex justify-center p-4 col-span-2'>
-            <h3 className='text-2xl'>--- Please Choose Province ---</h3>
+          <div className='flex justify-center p-2 xl:p-4 xl:col-span-2'>
+            <h3 className='text-lg xl:text-2xl'>
+              --- Please Choose Province ---
+            </h3>
           </div>
         )}
         {posts?.length == 0 && (
-          <div className='flex justify-center p-4 col-span-2'>
-            <h3 className='text-2xl'>--- Zero post in this province ---</h3>
+          <div className='flex justify-center p-2 xl:p-4 xl:col-span-2'>
+            <h3 className='text-lg xl:text-2xl'>
+              --- Zero post in this province ---
+            </h3>
           </div>
         )}
       </div>

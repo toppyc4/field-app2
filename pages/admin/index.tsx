@@ -6,6 +6,7 @@ import { ServicesType, ProvincesType } from "../../utils/types"
 import MapMarkerer from "../../components/app/MapMarkerer"
 import ImageUploader from "../../components/app/ImageUploader"
 import AuthCheck from "../../components/app/AuthCheck"
+import Navbar2 from "../../components/app/Navbar2"
 
 import { UserContext } from "../../lib/context"
 import { auth } from "../../lib/firebaseConfig"
@@ -26,13 +27,7 @@ import ReactMarkdown from "react-markdown"
 export default function AdminPostPage() {
   return (
     <AuthCheck>
-      <nav className='sticky top-0 z-10 max-w-screen h-[8vh] bg-slate-800 px-[4vw] flex justify-btween items-center drops-shadow-lg'>
-        <Link href='/main'>
-          <h1 className='text-[66px] font-bold text-white justify-self-start cursor-pointer '>
-            Field
-          </h1>
-        </Link>
-      </nav>
+      <Navbar2 />
       <CreateNewPost />
     </AuthCheck>
   )

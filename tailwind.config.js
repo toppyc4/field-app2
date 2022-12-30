@@ -10,6 +10,15 @@ module.exports = {
       backgroundImage: {
         "intro-field": "url('/img/field-painting.png')",
       },
+      screen: {
+        mobile: { min: "320px", max: "425px" },
+
+        tablet: { min: "425px", max: "768px" },
+
+        laptop: { min: "1024px", max: "1440px" },
+
+        desktop: { min: "1440px", max: "2560px" },
+      },
     },
   },
   plugins: [],

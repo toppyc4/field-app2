@@ -5,6 +5,7 @@ import { ServicesType, Post as PostType } from "../../utils/types"
 
 import { getUserWithUsername, postToJSON } from "../../lib/firebaseConfig"
 import { UserContext } from "../../lib/context"
+import Navbar2 from "../../components/app/Navbar2"
 
 import {
   collectionGroup,
@@ -105,32 +106,27 @@ export default function Post(props: any): JSX.Element {
 
   return (
     <div>
-      <nav className='sticky top-0 max-w-screen h-[8vh] bg-slate-800 px-[4vw] flex justify-btween items-center drops-shadow-lg'>
-        <Link href='/main'>
-          <h1 className='text-[66px] font-bold text-white justify-self-start cursor-pointer '>
-            Field
-          </h1>
-        </Link>
-      </nav>
-      <main className='text-lg'>
+      <Navbar2 />
+      <main className='text-base xl:text-lg '>
         <div className='flex justify-center mt-10'>
-          <div className='flex flex-col w-[45vw]'>
+          <div className='flex flex-col w-[41vw] h-[50vh]'>
             <div>
-              <h1 className='text-4xl font-bold'>{post.title}</h1>
+              <h1 className='text-2xl xl:text-4xl font-bold'>{post.title}</h1>
             </div>
-            <Image
-              src={post.photoUrl ? `${post.photoUrl}` : "/pic/field.png"}
-              alt='post pic'
-              className=' mt-4 border-black border-2'
-              width={900}
-              height={500}
-            />
+            <div className='relative h-full xl:h-[60vh] w-full xl:w-[40vw] mt-4 border-black border-2 bg-gray-100'>
+              <Image
+                src={post.photoUrl ? `${post.photoUrl}` : "/pic/field.png"}
+                alt='post pic'
+                className=''
+                fill
+                style={{ objectFit: "contain" }}
+              />
+            </div>
           </div>
-          <aside className='flex flex-col mt-10 w-[25vw] p-4'>
-            <div className='flex'>
-              <b className='text-lg'>👤 Creator: </b>
-
-              <div className='bg-lime-500 ml-auto mr-2 hover:bg-lime-400 text-white font-bold py-1 px-2 border-solid border-b-4 border-lime-700 hover:border-lime-500 rounded cursor-pointer'>
+          <aside className='flex flex-col mt-16 xl:mt-14 2xl:mt-10 w-[30vw] xl:w-[25vw] p-4'>
+            <div className='flex flex-wrap'>
+              <b className='text-base xl:text-lg'>👤Creator: </b>
+              <div className='bg-lime-500 ml-auto hover:bg-lime-400 text-white font-semibold xl:font-bold py-0.5 xl:py-1 px-1 xl:px-2 border-solid border-b-4 border-lime-700 hover:border-lime-500 rounded cursor-pointer'>
                 <Link href={`/${post.username}`}>
                   <p>@{post.username}</p>
                 </Link>
@@ -138,22 +134,58 @@ export default function Post(props: any): JSX.Element {
               {currentUser?.uid === post.uid && (
                 <Link
                   href={`/admin/${post.slug}`}
-                  className='mr-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-1 px-2 border-solid border-b-4 border-emerald-700 hover:border-lime-500 rounded cursor-pointer'
+                  className='mr-2 bg-emerald-500 hover:bg-emerald-400 text-white lg:ml-auto 2xl:ml-2 font-semibold xl:font-bold py-0.5 xl:py-1 px-1 xl:px-2 border-solid border-b-4 border-emerald-700 hover:border-lime-500 rounded cursor-pointer'
                 >
                   <div className=''>Edit Post</div>
                 </Link>
               )}
             </div>
-            <div className='flex mt-7'>
-              <b className='text-lg'>☎ Phone: </b>
-              <span className='max-h-[48px] inline-block bg-gray-200 rounded-full ml-auto px-3 py-2 text-md font-semibold text-slate-900 mb-1'>
-                {post.phone}
+
+            <div className='flex flex-wrap mt-3 2xl:mt-7'>
+              <b className='text-base xl:text-lg'>First Name: </b>
+              <span className='h-[32px] xl:h-[48px] inline-block rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md font-semibold text-slate-900 mb-1'>
+                first name
               </span>
             </div>
-            <div className='flex mt-7'>
-              <b className='text-lg'>💸 Price: </b>
-              <span className='max-h-[48px] inline-block bg-lime-50 rounded-full ml-auto px-3 py-1 text-md font-semibold text-slate-900 mb-1'>
+            <div className='flex flex-wrap mt-3 2xl:mt-7'>
+              <b className='text-base xl:text-lg'>Last Name: </b>
+              <span className='h-[32px] xl:h-[48px] inline-block rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md font-semibold text-slate-900 mb-1'>
+                last name
+              </span>
+            </div>
+
+            <div className='flex flex-wrap mt-3 2xl:mt-7'>
+              <b className='text-base xl:text-lg'>💸Price: </b>
+              <span className='h-[32px] xl:h-[48px] inline-block bg-lime-100 rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md font-semibold text-slate-900 mb-1'>
                 {post.price}
+              </span>
+            </div>
+            <div className='flex flex-wrap mt-3 2xl:mt-7'>
+              <div className=' my-auto relative w-[25px] xl:w-[35px] h-[25px] xl:h-[35px]'>
+                <Image
+                  src={"/icon/icon8/facebook.svg"}
+                  alt='facebook icon'
+                  fill
+                />
+              </div>
+              <b className='text-base xl:text-lg my-auto'>Facebook: </b>
+              <span className='h-[32px] xl:h-[48px] inline-block bg-purple-500 rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md font-semibold text-slate-900 mb-1'>
+                Facebook
+              </span>
+            </div>
+            <div className='flex flex-wrap mt-3 2xl:mt-7'>
+              <div className=' my-auto relative w-[25px] xl:w-[35px] h-[25px] xl:h-[35px]'>
+                <Image src={"/icon/icon8/line.svg"} alt='line icon' fill />
+              </div>
+              <b className=' text-base xl:text-lg my-auto'>Line: </b>
+              <span className='h-[32px] xl:h-[48px] inline-block bg-green-300 rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md font-semibold text-slate-900 mb-1'>
+                line
+              </span>
+            </div>
+            <div className='flex flex-wrap mt-3 2xl:mt-7'>
+              <b className='text-base xl:text-lg '>☎Phone: </b>
+              <span className='h-[32px] xl:h-[48px] inline-block bg-gray-200 rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md font-semibold text-slate-900 mb-1'>
+                {post.phone}
               </span>
             </div>
           </aside>
@@ -162,8 +194,8 @@ export default function Post(props: any): JSX.Element {
         {/* section 2 */}
         <div className='mx-[15vw] mt-4 mb-10 flex flex-col content-center'>
           <div className='mt-5'>
-            <b className='text-2xl'>Content:</b>
-            <p className='bg-white ml-1 p-4 text-xl'>{post.content}</p>
+            <b className='text-xl xl:text-2xl'>Content:</b>
+            <p className='bg-white ml-1 p-4 text-xl '>{post.content}</p>
           </div>
 
           {/* address form */}
@@ -171,13 +203,13 @@ export default function Post(props: any): JSX.Element {
             <Image
               src='/icon/location-blue-marker.svg'
               alt='location blue icon'
-              className=' pb-1 w-[40px] h-[40px]'
+              className=' pb-1 w-[30px] xl:w-[40px] h-[30px] xl:h-[40px]'
               width={40}
               height={40}
             />
-            <b className='text-2xl'>Address: </b>
+            <b className='text-xl xl:text-2xl'>Address: </b>
           </div>
-          <div className='ml-1 p-2 px-5 text-lg'>
+          <div className='ml-1 p-2 px-5 text-base xl:text-lg '>
             <div className='grid grid-cols-3 gap-2'>
               <div className='col-span-3'>
                 <b>Street Address: </b>
@@ -233,7 +265,7 @@ export default function Post(props: any): JSX.Element {
           </div>
 
           <div className='flex flex-col mt-5 mb-5'>
-            <b className='text-2xl'>🗺Map:</b>
+            <b className='text-xl xl:text-2xl'>🗺Map:</b>
             <div className='h-96'>
               <GoogleMapReact
                 bootstrapURLKeys={{

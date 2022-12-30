@@ -73,7 +73,7 @@ export default function ImageUploader({
       )}
 
       {downloadURL && (
-        <code className='text-xs w-fit'>{`Photo Url: ${downloadURL}`}</code>
+        <code className='text-xs xl:text-sm w-fit'>{`Photo Url: ${downloadURL}`}</code>
       )}
     </div>
   )

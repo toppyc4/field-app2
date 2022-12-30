@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import Image from "next/image"
 import {
   Filters as FiltersType,
   typesMap,
@@ -39,13 +40,13 @@ export default function SpotsType({
     <>
       <button
         ref={setRefButton}
-        className='flex flex-row w-64  transition-all duration-200 ease-in-out bg-white border border-gray-400 hover:border-gray-500 py-2 px-4 pr-8 rounded shadow leading-tight cursor-pointer focus:outline-none focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-60'
+        className='flex w-24 lg:w-36 xl:w-56 2xl:w-64 transition-all duration-200 ease-in-out bg-white border border-gray-400 hover:border-gray-500 py-0.5 lg:py-1 xl:py-2 px-1 lg:px-2 xl:px-4 pr-2 lg:pr-4 xl:pr-8 rounded shadow leading-tight cursor-pointer focus:outline-none focus:shadow-outline disabled:cursor-not-allowed disabled:opacity-60'
         onClick={() => setOpen(!open)}
         disabled={filters.province == null}
       >
-        <span className='flex flex-row items-center'>
-          Choose Type of Services
-        </span>
+        {/* <span className='flex flex-row items-center'> */}
+        Choose Type of Services
+        {/* </span> */}
       </button>
       {open && (
         <div
@@ -97,8 +98,13 @@ export default function SpotsType({
                 }`}
               >
                 {/* <Icon width='12'>{React.createElement(value.icon)}</Icon> */}
-                <img src={value.icon} />
-                <span className='text-xs mb-1'>{key}</span>
+                <Image
+                  src={value.icon}
+                  alt='service icon'
+                  width={22}
+                  height={22}
+                />
+                <span className='text-xs xl:text-sm mb-1'>{key}</span>
               </div>
             </button>
           ))}

@@ -3,6 +3,7 @@ import Link from "next/link"
 import UserProfile from "../../components/app/UserProfile"
 import UserForm from "../../components/app/UserForm"
 import PostsFeed from "../../components/app/PostsFeed"
+import Navbar2 from "../../components/app/Navbar2"
 
 import { Post } from "../../utils/types"
 import {
@@ -72,13 +73,7 @@ export default function UserProfilePage({
 
   return (
     <div>
-      <nav className='sticky top-0 max-w-screen h-[8vh] bg-slate-800 px-[4vw] flex justify-btween items-center drops-shadow-lg'>
-        <Link href='/main'>
-          <h1 className='text-[66px] font-bold text-white justify-self-start cursor-pointer '>
-            Field
-          </h1>
-        </Link>
-      </nav>
+      <Navbar2 />
       <main className='p-10 h-fit w-full flex justify-center'>
         <div className=' h-full flex flex-col'>
           <UserProfile

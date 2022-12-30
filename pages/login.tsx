@@ -44,7 +44,7 @@ export const SignOutButton = (): JSX.Element => {
           toast.success("Successfully Sign Out!")
         })
       }
-      className='bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-solid border-b-4 border-blue-700 hover:border-blue-500 rounded'
+      className='bg-blue-500 hover:bg-blue-400 text-white font-semibold xl:font-bold py-0.5 lg:py-1 xl:py-2 px-1 lg:px-2 xl:px-4 border-solid border-b-4 border-blue-700 hover:border-blue-500 rounded'
     >
       Sign Out
     </button>

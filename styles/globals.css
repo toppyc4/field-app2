@@ -16,7 +16,7 @@
   .grid-list-items {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    height: 67vh;
+    height: 66vh;
     margin-top: 0.69rem;
     background-color: azure;
     overflow: auto;

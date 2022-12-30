@@ -64,7 +64,7 @@ export default function Navbar({
         onClick={() => {
           router.push("/admin")
         }}
-        className='bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-solid border-b-4 border-blue-700 hover:border-blue-500 rounded'
+        className='bg-blue-500 hover:bg-blue-400 text-white font-semibold xl:font-bold py-0.5 lg:py-1 xl:py-2 px-1 lg:px-2 xl:px-4 border-solid border-b-4 border-blue-700 hover:border-blue-500 rounded'
       >
         Create Post
       </button>
@@ -76,7 +76,7 @@ export default function Navbar({
         onClick={() => {
           setDrawingMap(!drawingMap)
         }}
-        className='bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-solid border-b-4 border-blue-700 hover:border-blue-500 rounded'
+        className='bg-blue-500 hover:bg-blue-400 text-white font-semibold xl:font-bold py-0.5 lg:py-1 xl:py-2 px-1 lg:px-2 xl:px-4 border-solid border-b-4 border-blue-700 hover:border-blue-500 rounded'
       >
         {drawingMap ? "view Visualize Map" : "Draw Map"}
       </button>
@@ -86,12 +86,12 @@ export default function Navbar({
   return (
     <nav className='max-w-screen h-[8vh] bg-slate-800 px-[4vw] flex justify-btween items-center drops-shadow-lg'>
       <Link href='/'>
-        <h1 className='text-[66px] font-bold text-white justify-self-start cursor-pointer '>
+        <h1 className='text-5xl xl:text-[66px] font-bold text-white justify-self-start cursor-pointer '>
           Field
         </h1>
       </Link>
 
-      <div className='ml-auto mr-3 inline-block relative w-64'>
+      <div className='ml-auto mr-3 inline-block relative w-36 xl:w-64'>
         <SearchBox
           // the value is placeId of selected place
           value={{
