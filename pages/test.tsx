@@ -1,10 +1,20 @@
 import React from "react"
-import Navbar2 from "../components/app/Navbar2"
+import toast from "react-hot-toast"
 
 const test = () => {
+  const notify = () => {
+    toast.custom(
+      <div className='border-2 border-black'>
+        <form>
+          <span>password:</span>
+          <input />
+        </form>
+      </div>
+    )
+  }
   return (
     <div>
-      <Navbar2 />
+      <button onClick={notify}> toast</button>
     </div>
   )
 }
