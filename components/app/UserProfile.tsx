@@ -1,4 +1,6 @@
 import React from "react"
+import Image from "next/image"
+import Link from "next/link"
 // import { User } from "../../utils/types"
 
 export default function UserProfile({
@@ -26,28 +28,82 @@ export default function UserProfile({
           {editing ? "Hide Form" : "Update Profile"}
         </button>
       )}
-      <img
-        src={user?.photoURL || "/img/question-mark-profile.jpg"}
-        className='w-[20%] mx-auto mb-1 max-w-[150px] block rounded-full'
-      />
-      <p>
+      <div className='relative w-36 h-36 mx-auto'>
+        <Image
+          src={user?.photoURL || "/img/question-mark-profile.jpg"}
+          className='block rounded-full'
+          alt='user profile image'
+          fill
+        />
+      </div>
+      <p className='m-1'>
         <i>@{user.username}</i>
       </p>
 
-      <h1 className='text-2xl font-bold'>
+      <h1 className='m-2 text-2xl font-bold'>
         {user?.Fname || "Unknown real name"} {user?.Lname || ""}
       </h1>
-      <p>
-        <strong>Email: </strong>
-        {user?.email ||
-          "Unknown (please click update profile at top right corner)"}
-      </p>
-      <p>
-        <strong>Location: </strong>
-        {user?.address?.province ||
-          "Unknown (please click update profile at top right corner)"}
-        , {user?.address?.country || ""}
-      </p>
+      <div className='m-2 flex'>
+        <p className='font-semibold text-lg'>Email: </p>
+        <p className='ml-auto'>
+          {user?.email ||
+            "Unknown (please click update profile at top right corner)"}
+        </p>
+      </div>
+      <div className='m-2 flex'>
+        <p className='font-semibold text-lg'>Location: </p>
+        <p className='ml-auto'>
+          {user?.address?.province ||
+            "Unknown (please click update profile at top right corner)"}
+          , {user?.address?.country || ""}
+        </p>
+      </div>
+      <div className='m-2 flex'>
+        <p className='font-semibold text-lg'>Facebook account: </p>
+        <div className='ml-auto'>
+          <p className=''>
+            {user?.Facebook ? (
+              <button className='flex font-semibold text-white p-2 bg-indigo-600 hover:bg-indigo-400  rounded-lg disabled:opacity-75'>
+                <Image
+                  src={"/icon/icon8/facebook.svg"}
+                  className='w-[30px] mr-[10px]'
+                  width={30}
+                  height={30}
+                  alt='facebook sign-in icon'
+                />
+                <a target='_blank' href={`${user.Facebook}`}>
+                  {user.Facebook}
+                </a>
+              </button>
+            ) : (
+              "Unknown Facebook account"
+            )}
+          </p>
+        </div>
+      </div>
+      <div className='m-2 flex'>
+        <p className='font-semibold text-lg'>Line Id: </p>
+        <div className='ml-auto'>
+          <p className='ml-auto'>
+            {user?.Line ? (
+              <button className='flex font-semibold text-white p-2 bg-green-600 hover:bg-green-400 rounded-lg disabled:opacity-75'>
+                <Image
+                  src={"/icon/icon8/line.svg"}
+                  className='w-[30px] mr-[10px]'
+                  width={30}
+                  height={30}
+                  alt='line sign-in icon'
+                />
+                <a target='_blank' href={`https://line.me/ti/p/~${user.Line}`}>
+                  {user.Line}
+                </a>
+              </button>
+            ) : (
+              "Unknown Line Id"
+            )}
+          </p>
+        </div>
+      </div>
     </div>
   )
 }

@@ -75,22 +75,18 @@ export default function UserProfilePage({
     <div>
       <Navbar2 />
       <main className='p-10 h-fit w-full flex justify-center'>
-        <div className=' h-full flex flex-col'>
+        <div className='h-full flex flex-col'>
           <UserProfile
             user={user}
             admin={admin}
             editing={editing}
             setEditing={setEditing}
           />
-          {
-            editing && <UserForm />
-            //  <UserForm user={user} setEditing={setEditing} />
-          }
+          {editing && (
+            <UserForm user={user} username={username} setEditing={setEditing} />
+          )}
           <PostsFeed posts={posts} admin={admin} />
         </div>
-        {/* <aside className=''>
-          <button>Edit Profile</button>
-        </aside> */}
       </main>
     </div>
   )

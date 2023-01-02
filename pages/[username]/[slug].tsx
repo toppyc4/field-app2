@@ -23,12 +23,16 @@ import { useDocumentData } from "react-firebase-hooks/firestore"
 
 export async function getStaticProps({ params }: { params?: any }) {
   const { username, slug } = params
+
   const userDoc = await getUserWithUsername(username)
 
   let post
   let path
+  let postOwner
 
   if (userDoc) {
+    postOwner = postToJSON(userDoc)
+
     const postRef = doc(getFirestore(), userDoc.ref.path, "posts", slug)
 
     post = postToJSON(await getDoc(postRef))
@@ -37,7 +41,7 @@ export async function getStaticProps({ params }: { params?: any }) {
   }
 
   return {
-    props: { post, path },
+    props: { postOwner, post, path },
     revalidate: 420,
   }
 }
@@ -69,8 +73,13 @@ export default function Post(props: any): JSX.Element {
   const [realtimePost] = useDocumentData(postRef)
 
   const post = realtimePost || props.post
+  const postOwner = props.postOwner
 
   const { user: currentUser } = useContext(UserContext)
+
+  console.log("[usernameSlugPage]postOwner:", props.postOwner)
+  console.log("[usernameSlugPage]post:", post)
+  console.log("[usernameSlugPage]realtimePost:", realtimePost)
 
   // const { isLoaded } = useLoadScript({
   //   //@ts-ignore
@@ -143,21 +152,21 @@ export default function Post(props: any): JSX.Element {
 
             <div className='flex flex-wrap mt-3 2xl:mt-7'>
               <b className='text-base xl:text-lg'>First Name: </b>
-              <span className='h-[32px] xl:h-[48px] inline-block rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md font-semibold text-slate-900 mb-1'>
-                first name
+              <span className='text-base xl:text-xl h-[32px] xl:h-[48px] inline-block rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2  xl:text-md font-semibold text-slate-900 mb-1'>
+                {postOwner.Fname || "unknown first name"}
               </span>
             </div>
             <div className='flex flex-wrap mt-3 2xl:mt-7'>
               <b className='text-base xl:text-lg'>Last Name: </b>
-              <span className='h-[32px] xl:h-[48px] inline-block rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md font-semibold text-slate-900 mb-1'>
-                last name
+              <span className='text-base xl:text-xl h-[32px] xl:h-[48px] inline-block rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 xl:text-md font-semibold text-slate-900 mb-1'>
+                {postOwner.Lname || "unknown last name"}
               </span>
             </div>
 
             <div className='flex flex-wrap mt-3 2xl:mt-7'>
               <b className='text-base xl:text-lg'>💸Price: </b>
               <span className='h-[32px] xl:h-[48px] inline-block bg-lime-100 rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md font-semibold text-slate-900 mb-1'>
-                {post.price}
+                {post.price || "unknown Price"}
               </span>
             </div>
             <div className='flex flex-wrap mt-3 2xl:mt-7'>
@@ -169,8 +178,14 @@ export default function Post(props: any): JSX.Element {
                 />
               </div>
               <b className='text-base xl:text-lg my-auto'>Facebook: </b>
-              <span className='h-[32px] xl:h-[48px] inline-block bg-purple-500 rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md font-semibold text-slate-900 mb-1'>
-                Facebook
+              <span className='text-white font-semibold h-[32px] xl:h-[48px] inline-block bg-purple-500 hover:bg-purple-300 rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md mb-1'>
+                {postOwner.Facebook ? (
+                  <a target='_blank' href={`${postOwner.Facebook}`}>
+                    {postOwner.Facebook.split("https://www.facebook.com/")}
+                  </a>
+                ) : (
+                  "unknown Facebook account"
+                )}
               </span>
             </div>
             <div className='flex flex-wrap mt-3 2xl:mt-7'>
@@ -178,8 +193,17 @@ export default function Post(props: any): JSX.Element {
                 <Image src={"/icon/icon8/line.svg"} alt='line icon' fill />
               </div>
               <b className=' text-base xl:text-lg my-auto'>Line: </b>
-              <span className='h-[32px] xl:h-[48px] inline-block bg-green-300 rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md font-semibold text-slate-900 mb-1'>
-                line
+              <span className='text-white font-semibold h-[32px] xl:h-[48px] inline-block bg-green-400 hover:bg-green-200 rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md mb-1'>
+                {postOwner.Line ? (
+                  <a
+                    target='_blank'
+                    href={`https://line.me/ti/p/~${postOwner.Line}`}
+                  >
+                    {postOwner.Line}
+                  </a>
+                ) : (
+                  "unknown Line Id"
+                )}
               </span>
             </div>
             <div className='flex flex-wrap mt-3 2xl:mt-7'>

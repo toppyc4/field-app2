@@ -131,7 +131,7 @@ const SignInButton = (): JSX.Element => {
   return (
     <>
       <button
-        className='m-5 bg-white text-black p-2 xl:p-4 py-1 xl:py-2 flex items-center text-center content-center font-bold rounded-lg cursor-pointer '
+        className='m-4 bg-white text-black p-2 xl:p-4 py-1 xl:py-2 flex items-center text-center content-center font-bold rounded-lg cursor-pointer '
         onClick={signInWithGoogle}
       >
         <Image
@@ -144,7 +144,7 @@ const SignInButton = (): JSX.Element => {
         Sign in with Google
       </button>
       <button
-        className='m-5 bg-[#3b5998] text-white p-2 xl:p-4 py-1 xl:py-2 flex items-center text-center content-center font-bold rounded-lg cursor-pointer '
+        className='m-4 bg-[#3b5998] text-white p-2 xl:p-4 py-1 xl:py-2 flex items-center text-center content-center font-bold rounded-lg cursor-pointer '
         onClick={signInWithFacebook}
       >
         <Image

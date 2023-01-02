@@ -18,17 +18,18 @@ import toast from "react-hot-toast"
 export default function login(): JSX.Element {
   const router = useRouter()
   const { user, username } = useContext(UserContext)
-  console.log("[login]user: ", user)
-  console.log("[login]username: ", username)
+  console.log("[login] user: ", user)
+  console.log("[login] username: ", username)
 
-  if (user && username) {
-    router.push("/main")
-  }
+  // if (user && username) {
+  //   router.push("/main")
+  // }
 
   return (
     <main className='h-[100vh]'>
       {user && !username && <UsernameForm />}
-      <h1>what?</h1>
+      <h1>loginPage</h1>
+      <UsernameForm />
     </main>
   )
 }
@@ -73,6 +74,8 @@ function UsernameForm(): JSX.Element | null {
       username: formValue,
       photoURL: user.photoURL,
       displayName: user.displayName,
+      Facebook: null,
+      Line: null,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     })
@@ -81,10 +84,12 @@ function UsernameForm(): JSX.Element | null {
     await batch
       .commit()
       .then(() => {
-        toast.success("batch!, Nice name!")
+        console.log("[loginPage, writeBatch] batch commit success")
         router.push("/main")
       })
-      .catch((e) => alert("Commit Batch Error:" + e))
+      .catch((e) =>
+        console.log("[loginPage, writeBatch] batch commit error:", e)
+      )
   }
 
   // Organize input
