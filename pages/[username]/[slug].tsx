@@ -25,7 +25,6 @@ export async function getStaticProps({ params }: { params?: any }) {
   const { username, slug } = params
 
   const userDoc = await getUserWithUsername(username)
-
   let post
   let path
   let postOwner
@@ -39,7 +38,6 @@ export async function getStaticProps({ params }: { params?: any }) {
 
     path = postRef.path
   }
-
   return {
     props: { postOwner, post, path },
     revalidate: 420,
@@ -76,10 +74,6 @@ export default function Post(props: any): JSX.Element {
   const postOwner = props.postOwner
 
   const { user: currentUser } = useContext(UserContext)
-
-  console.log("[usernameSlugPage]postOwner:", props.postOwner)
-  console.log("[usernameSlugPage]post:", post)
-  console.log("[usernameSlugPage]realtimePost:", realtimePost)
 
   // const { isLoaded } = useLoadScript({
   //   //@ts-ignore
@@ -181,7 +175,7 @@ export default function Post(props: any): JSX.Element {
               <span className='text-white font-semibold h-[32px] xl:h-[48px] inline-block bg-purple-500 hover:bg-purple-300 rounded-full ml-auto px-1 xl:px-3 py-0.5 xl:py-2 text-base xl:text-md mb-1'>
                 {postOwner.Facebook ? (
                   <a target='_blank' href={`${postOwner.Facebook}`}>
-                    {postOwner.Facebook.split("https://www.facebook.com/")}
+                    {postOwner.Facebook.slice(25, -1)}
                   </a>
                 ) : (
                   "unknown Facebook account"

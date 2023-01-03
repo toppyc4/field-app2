@@ -76,11 +76,7 @@ const SignInButton = (): JSX.Element => {
           const pendingCred = OAuthProvider.credentialFromError(err)
           const email = err.customData.email
 
-          console.log(`signInWithFacebook pendingCred: ${pendingCred}`)
-          console.log(`signInWithFacebook email: ${email}`)
-
           fetchSignInMethodsForEmail(auth, email).then((methods: any) => {
-            console.log("[fetchSignInMethodsForEmail] methods:", methods)
             // if (methods[0] === "password") {
             //   var password = promptUserForPassword() // TODO: implement promptUserForPassword.
             //   signInWithEmailAndPassword(email, password)
@@ -105,13 +101,8 @@ const SignInButton = (): JSX.Element => {
             // @ts-ignore umm, how can i fix this?
             signInWithPopup(auth, provider).then((res) => {
               // link auth
-              console.log("[signInWithFacebook, signInwithPopup] res:", res)
-              console.log(
-                "[signInWithFacebook, signInwithPopup] res.user:",
-                res.user
-              )
               // @ts-ignore umm, how can i fix this?
-              linkWithCredential(res.user, pendingCred).then(() => {
+              linkWithCredential(res.user, pendingCred!).then(() => {
                 toast.success("successfully link acc")
                 router.push("/login")
               })
@@ -121,11 +112,6 @@ const SignInButton = (): JSX.Element => {
             })
           })
         }
-        alert(`[signInWithFacebook] Error: ${err.message}`)
-        console.log(`[signInWithFacebook] Error.message: ${err.message}`)
-        console.log(`[signInWithFacebook] Error.code: ${err.code}`)
-
-        console.log(`[signInWithFacebook] Error: ${err}`)
       })
   }
   return (

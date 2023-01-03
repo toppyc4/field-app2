@@ -89,7 +89,6 @@ export default function UserForm({
         ", " +
         _country,
     })
-    console.log("[UserForm]address:", address)
   }, [
     _streetAddress,
     _streetAddress2,
@@ -134,7 +133,7 @@ export default function UserForm({
   }) {
     const uid = auth?.currentUser?.uid
     const userRef = doc(getFirestore(), "users", uid!)
-    // console.log("userDoc: ", userDoc)
+
     await updateDoc(userRef, {
       // username,
       Fname,
@@ -169,34 +168,7 @@ export default function UserForm({
         onSubmit={handleSubmit(updateUser)}
         className='mx-auto w-full max-w-xl'
       >
-        {/* <button onClick={() => {}} className='w-50 h-12 mb-6 mx-auto'>
-          Upload Profile Picture
-        </button> */}
         <div>
-          {/* Username */}
-          {/* <div className='flex flex-wrap -mx-3 mb-2'>
-            <div className='w-full px-3'>
-              <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
-                Username (ชื่อผู้ใช้)
-              </label>
-              <input
-                className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-                id='streetAddress1'
-                type='text'
-                placeholder='magnus'
-                {...register("username", {
-                  maxLength: { value: 33, message: "content is too long" },
-                  minLength: { value: 3, message: "content is too short" },
-                  required: { value: true, message: "content is required" },
-                })}
-              />
-              {errors.streetAddress1 && (
-                <p className='font-bold text-red-600'>
-                  {errors.streetAddress1.message}
-                </p>
-              )}
-            </div>
-          </div> */}
           {/* First and Last Name */}
           <div className='flex flex-wrap -mx-3 mb-2'>
             <div className='w-full md:w-1/2 px-3 mb-0'>
@@ -238,7 +210,7 @@ export default function UserForm({
               )}
             </div>
           </div>
-          {/* Email and Password */}
+          {/* Contract */}
           <div className='flex flex-wrap -mx-3 mb-6'>
             <div className='w-full px-3 mb-3 '>
               <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
@@ -291,22 +263,6 @@ export default function UserForm({
                 <p className='font-bold text-red-600'>{`${errors.email.message}`}</p>
               )}
             </div>
-            {/* <div className='w-full md:w-1/2 px-3'>
-              <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
-                Password (รหัสผ่าน)
-              </label>
-              <input
-                className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-                id='password'
-                type='password'
-                placeholder='Password'
-                disabled={true}
-                {...register("password", {
-                  required: { value: false, message: "content is required" },
-                })}
-              />
-              <p> not available yet </p>
-            </div> */}
           </div>
         </div>
 

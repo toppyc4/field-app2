@@ -18,17 +18,15 @@ import toast from "react-hot-toast"
 export default function login(): JSX.Element {
   const router = useRouter()
   const { user, username } = useContext(UserContext)
-  console.log("[login] user: ", user)
-  console.log("[login] username: ", username)
 
-  // if (user && username) {
-  //   router.push("/main")
-  // }
+  if (user && username) {
+    router.push("/main")
+  }
 
   return (
     <main className='h-[100vh]'>
       {user && !username && <UsernameForm />}
-      <h1>loginPage</h1>
+      <h1>loginPage; you probably already have an username </h1>
       <UsernameForm />
     </main>
   )
@@ -84,7 +82,7 @@ function UsernameForm(): JSX.Element | null {
     await batch
       .commit()
       .then(() => {
-        console.log("[loginPage, writeBatch] batch commit success")
+        console.log("[loginPage, writeBatch] successfully batch commit")
         router.push("/main")
       })
       .catch((e) =>
@@ -123,7 +121,7 @@ function UsernameForm(): JSX.Element | null {
       if (username.length >= 3) {
         const ref = doc(getFirestore(), "usernames", username)
         const snap = await getDoc(ref)
-        console.log("Firestore read executed! snap exist?:", snap.exists())
+        // console.log("Firestore read executed! snap exist?:", snap.exists())
         setIsValid(!snap.exists())
         setLoading(false)
       }

@@ -30,7 +30,7 @@ export default function UserProfile({
       )}
       <div className='relative w-36 h-36 mx-auto'>
         <Image
-          src={user?.photoURL || "/img/question-mark-profile.jpg"}
+          src={user?.photoURL || "/pic/question-mark-profile.jpg"}
           className='block rounded-full'
           alt='user profile image'
           fill

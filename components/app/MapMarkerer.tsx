@@ -17,15 +17,14 @@ export default function MapMarkerer({
   function handleClick(): void {
     getGeocode({ address: address.formatted_address })
       .then((results) => {
-        console.log("Geocode results: ", results[0])
+        // console.log("Geocode results: ", results[0])
         const { lat, lng } = getLatLng(results[0])
-        console.log("📍 MiniMapCoor: ", { lat, lng })
+        // console.log("📍 MiniMapCoor: ", { lat, lng })
         setMiniMapCoor({ lat, lng })
       })
       .catch((error) => {
         console.log("[MapMarkerer, handleClick()]:Error: ", error)
       })
-    console.log("[MapMarkerer]: serch location")
   }
 
   return (
