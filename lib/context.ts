@@ -5,7 +5,14 @@ export const UserContext = createContext<{
   username: string | null
   line: string | null
   facebook: string | null
-}>({ user: null, username: null, line: null, facebook: null })
+  // admin: boolean
+}>({ 
+  user: null,
+   username: null,
+   line: null,
+   facebook: null,
+  //  admin: false 
+  })
 
 // export const CoordinateContext = createContext({
 //   coordinates: {},

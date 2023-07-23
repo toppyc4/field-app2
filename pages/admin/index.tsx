@@ -207,8 +207,8 @@ function CreateNewPost() {
   }
 
   return (
-    <div className='h-full mt-8 ml-44 pl-44 text-lg'>
-      <h1 className='text-4xl font-bold my-6'>Create new Post</h1>
+    <div className='flex flex-col h-full items-center justify-center text-lg'>
+      <h1 className='text-4xl font-bold my-6'>Create New Post</h1>
       <form
         //@ts-ignore
         onSubmit={handleSubmit(createPost)}

@@ -2,8 +2,9 @@ import "../styles/globals.css"
 import type { AppProps } from "next/app"
 import { UserContext } from "../lib/context"
 import { useUserData } from "../lib/hooks"
-import { useLoadScript } from "@react-google-maps/api"
+// import Layout from "../components/base/Layout"
 
+import { useLoadScript } from "@react-google-maps/api"
 import { Toaster } from "react-hot-toast"
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -17,12 +18,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     return <p>Loading . . . . . </p>
   }
   return (
-    <>
       <UserContext.Provider value={userData}>
         <Component {...pageProps} />
         <Toaster />
       </UserContext.Provider>
-    </>
   )
 }
 

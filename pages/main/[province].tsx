@@ -21,6 +21,7 @@ import {
   getFirestore,
 } from "firebase/firestore"
 
+
 const HomeProvincePage: NextPage = ({
   services,
   posts,
@@ -56,6 +57,10 @@ const HomeProvincePage: NextPage = ({
   //     getProvinceCoord(province.province)
   //   }
   // }, [province])
+  console.log(`[HomeProvincePage]: posts: ${posts}`)
+  console.log(`[HomeProvincePage]: services: }`)
+  console.log(services)
+  console.log(`[HomeProvincePage]: province: ${province}`)
 
   return (
     <>
@@ -76,6 +81,7 @@ const HomeProvincePage: NextPage = ({
             selectedMarker={selectedMarker}
             setSelectedMarker={setSelectedMarker}
             drawingMap={drawingMap}
+            mapRef={mapRef}
             // itemsRef={itemsRef}
           />
         </div>
@@ -100,8 +106,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   //@ts-ignore
   let { province } = context.params
 
-  // @ts-ignore
   const provinceDocs = await getPostsWithProvince(province)
+
+  console.log(`province: ${province}`)
+  console.log(`provinceDocs: ${provinceDocs}`)
 
   // JSON serializable data
   let posts = null
@@ -133,6 +141,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     } else {
       console.log(
         "[Province page] all service is actived but have problem querying data"
+      )
+      console.log(
+        "[Province page] You might want to check in province document whether it have province field or not"
       )
     }
   } else {

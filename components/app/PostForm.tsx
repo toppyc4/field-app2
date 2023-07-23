@@ -315,7 +315,6 @@ export default function PostForm({
                   placeholder='district'
                   {...register("district", {
                     maxLength: { value: 30, message: "content is too long" },
-                    minLength: { value: 2, message: "content is too short" },
                     required: { value: false, message: "content is required" },
                   })}
                 />
@@ -337,8 +336,8 @@ export default function PostForm({
                   placeholder='locality'
                   {...register("locality", {
                     maxLength: { value: 30, message: "content is too long" },
-                    minLength: { value: 3, message: "content is too short" },
-                    required: { value: true, message: "content is required" },
+                    // minLength: { value: 0, message: "content is too short" },
+                    required: { value: false, message: "content is required" },
                   })}
                 />
                 {errors.locality && (

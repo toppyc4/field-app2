@@ -16,6 +16,7 @@ export default function Sidebar({
   setSelectedMarker,
   setAddress,
   drawingMap,
+  mapRef
 }: {
   posts: Post[] | null
   filters: FiltersType
@@ -24,6 +25,7 @@ export default function Sidebar({
   setSelectedMarker: (marker: Post) => void
   setAddress: (address: Address) => void
   drawingMap: boolean
+  mapRef: React.MutableRefObject<null>
 }): JSX.Element {
   const router = useRouter()
 
@@ -51,10 +53,12 @@ export default function Sidebar({
           .join(","),
       },
     })
+    // @ts-ignore
+    mapRef.current.map_?.setZoom(12)
   }
 
   return (
-    <div className='h-[92vh] pt-2 px-4 bg-slate-100'>
+    <div className='h-[92vh] pt-2 px-4 bg-slate-100 dark:bg-slate-700'>
       {/* filter div */}
       <div className='border-b-2 border-slate-400'>
         <div className='flex'>
@@ -213,7 +217,7 @@ export default function Sidebar({
         ))}
 
         {!posts && (
-          <div className='flex justify-center p-2 xl:p-4 xl:col-span-2'>
+          <div className='flex justify-center p-2 col-span-2 xl:p-4'>
             <h3 className='text-lg xl:text-2xl'>
               --- Please Choose Province ---
             </h3>

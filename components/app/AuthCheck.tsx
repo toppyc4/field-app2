@@ -8,9 +8,9 @@ export default function AuthCheck(props: any): JSX.Element {
   return username && line && facebook
     ? props.children
     : props.fallback || (
+      <div className='flex justify-center h-screen items-center'> 
         <p
-          className='text-3xl
-        '
+          className='text-3xl'
         >
           Please{" "}
           <Link
@@ -20,7 +20,7 @@ export default function AuthCheck(props: any): JSX.Element {
             {" "}
             Sign In{" "}
           </Link>
-          or{" "}
+          and{" "}
           <Link
             href={username ? `/${username}` : "/login"}
             className='font-bold text-sky-600 underline cursor-pointer '
@@ -29,5 +29,6 @@ export default function AuthCheck(props: any): JSX.Element {
           </Link>{" "}
           before proceeding.
         </p>
+      </div>
       )
 }

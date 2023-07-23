@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react"
-import Link from "next/link"
+// import Link from "next/link"
 import UserProfile from "../../components/app/UserProfile"
 import UserForm from "../../components/app/UserForm"
 import PostsFeed from "../../components/app/PostsFeed"
@@ -39,7 +39,7 @@ export async function getServerSideProps({ query: urlQuery }: { query: any }) {
 
   if (userDoc) {
     user = postToJSON(userDoc)
-    // usre = userDoc.data()
+    // user = userDoc.data()
 
     const postQuery = query(
       collection(getFirestore(), userDoc.ref.path, "posts"),
@@ -53,6 +53,11 @@ export async function getServerSideProps({ query: urlQuery }: { query: any }) {
     props: { user, posts }, // will be passed to the page component as props
   }
 }
+
+// We use getSeverSideProp to get data from our firestore 
+// and validate it the username from useContext
+// this confirm us whether or not the user is the owner of the profile (admin)
+
 
 export default function UserProfilePage({
   user,
@@ -69,12 +74,12 @@ export default function UserProfilePage({
     {
       username === user.username && setAdmin(true)
     }
-  }, [])
+  }, [username])
 
   return (
     <div>
       <Navbar2 />
-      <main className='p-10 h-fit w-full flex justify-center'>
+      <main className='h-fit w-full flex justify-center items-center'>
         <div className='h-full flex flex-col'>
           <UserProfile
             user={user}

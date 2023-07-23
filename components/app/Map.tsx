@@ -46,7 +46,7 @@ const Map = ({
       lng: address.coords?.lng,
     })
     // @ts-ignore
-    mapRef.current.map_?.setZoom(13)
+    mapRef.current.map_?.setZoom(12)
   }, [address, data, hasMounted])
 
   useEffect(() => {

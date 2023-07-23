@@ -18,14 +18,15 @@ import { getStorage } from "firebase/storage"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDy50qUEvkn-6h7pM0oMzS8svO_qeGiu5o",
-  authDomain: "map-app-f215b.firebaseapp.com",
-  projectId: "map-app-f215b",
-  storageBucket: "map-app-f215b.appspot.com",
-  messagingSenderId: "789952193939",
-  appId: "1:789952193939:web:0248b0ddf150c884dd7466",
-  measurementId: "G-8F7VTK6C01",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 }
 
 // Initialize Firebase
@@ -69,7 +70,6 @@ export async function getUserWithUsername(username: string): Promise<any> {
     where("username", "==", username),
     limit(1)
   )
-
   const userDoc = (await getDocs(q)).docs[0]
   return userDoc
 }
@@ -94,6 +94,7 @@ export function postToJSON(doc: any) {
  * @param {string} province
  */
 export async function getPostsWithProvince(province: string) {
+  // querying data from provinces doc by searching for province field
   const q = query(
     collection(firestore, "provinces"),
     where("province", "==", province),
@@ -101,5 +102,6 @@ export async function getPostsWithProvince(province: string) {
   )
 
   const provinceDocs = (await getDocs(q)).docs[0]
+
   return provinceDocs
 }

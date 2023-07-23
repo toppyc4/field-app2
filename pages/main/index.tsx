@@ -59,6 +59,7 @@ const Home: NextPage = () => {
             selectedMarker={selectedMarker}
             setSelectedMarker={setSelectedMarker}
             drawingMap={drawingMap}
+            mapRef={mapRef}
             // itemsRef={itemsRef}
           />
         </div>

@@ -47,9 +47,17 @@ function PostManager(): JSX.Element {
   }, [username, post])
 
   return (
-    <main className='h-full mt-8 ml-44 pl-44 text-lg'>
-      {!post && <p>404 Post not found . . . </p>}
-      {post && !admin && <p>You have no authorize to Edit . . . </p>}
+    <main className='h-full mt-14 text-lg'>
+      {!post && 
+      <div className="flex justify-center items-center">
+        <p className="font-bold">404 Post not found . . . </p>
+      </div>
+        }
+
+      {post && !admin && <div className="flex justify-center items-center">
+        <p className="font-bold"> You have no authorize to Edit . . . </p>
+      </div>
+      }
       {post && admin && (
         <div className='flex'>
           <section className='max-w-[55vw] h-full'>

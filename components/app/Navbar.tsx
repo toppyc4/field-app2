@@ -3,6 +3,7 @@ import Image from "next/image"
 import { useContext, useState, useEffect } from "react"
 import { UserContext } from "../../lib/context"
 import { SignOutButton } from "../../pages/login"
+import  {buttonStyles}  from "../ui/Button"
 
 // import usePlacesAutocomplete from "use-places-autocomplete"
 
@@ -40,6 +41,20 @@ export default function Navbar({
     setValue(lat, lng, formatted_address)
     // setAddress
   }
+
+  const [theme, setTheme] = useState(true)
+
+  const handleTheme = () => {
+    const newTheme = !theme
+    localStorage.setItem('darkMode', newTheme.toString())
+    setTheme(newTheme)
+  }
+
+  useEffect(() => {
+    // Check if dark mode is alreadu set in local storage
+    const storedDarkTheme = localStorage.getItem('darkMode')
+    setTheme(storedDarkTheme === 'true')
+  }, [])
   // const clearLocations = () => {
   //   setLocations([])
   // }
@@ -58,13 +73,14 @@ export default function Navbar({
   // }, [])
 
   const CreatePostButton = () => {
+    console.log(`username: ${username}`)
     const router = useRouter()
     return (
       <button
         onClick={() => {
           router.push("/admin")
         }}
-        className='bg-blue-500 hover:bg-blue-400 text-white font-semibold xl:font-bold py-0.5 lg:py-1 xl:py-2 px-1 lg:px-2 xl:px-4 border-solid border-b-4 border-blue-700 hover:border-blue-500 rounded'
+        className='bg-blue-500 hover:bg-blue-400 border-solid border-b-4 border-blue-700 hover:border-blue-500 text-white rounded font-semibold px-1 py-0.5 lg:px-2 lg:py-1  xl:font-bold  xl:px-4  xl:py-2'
       >
         Create Post
       </button>
@@ -76,15 +92,25 @@ export default function Navbar({
         onClick={() => {
           setDrawingMap(!drawingMap)
         }}
-        className='bg-blue-500 hover:bg-blue-400 text-white font-semibold xl:font-bold py-0.5 lg:py-1 xl:py-2 px-1 lg:px-2 xl:px-4 border-solid border-b-4 border-blue-700 hover:border-blue-500 rounded'
+        className='bg-blue-500 hover:bg-blue-400 border-solid border-b-4 border-blue-700 hover:border-blue-500 text-white rounded font-semibold px-1 py-0.5 lg:px-2 lg:py-1  xl:font-bold  xl:px-4  xl:py-2 '
       >
         {drawingMap ? "view Visualize Map" : "Draw Map"}
       </button>
     )
   }
+  const ThemeButton = (): JSX.Element => {
+    return (
+      <button
+        onClick={handleTheme}
+        className='bg-blue-500 hover:bg-blue-400 text-white font-semibold xl:font-bold py-0.5 lg:py-1 xl:py-2 px-1 lg:px-2 xl:px-4 border-solid border-b-4 border-blue-700 hover:border-blue-500 rounded'
+      >
+        {theme ? <Image src ="/icon/sun.svg" alt="sun-icon" width={25} height={25}/> : <Image src ="/icon/moon.svg" alt="moon-icon" width={25} height={25} /> }
+      </button>
+    )
+  }
 
   return (
-    <nav className='max-w-screen h-[8vh] bg-slate-800 px-[4vw] flex justify-btween items-center drops-shadow-lg'>
+    <nav className='w-screen h-[8vh] bg-slate-800 px-[4vw] flex justify-btween items-center drops-shadow-lg'>
       <Link href='/'>
         <h1 className='text-5xl xl:text-[66px] font-bold text-white justify-self-start cursor-pointer '>
           Field
@@ -110,6 +136,8 @@ export default function Navbar({
               setAddress(newAddress)
               // @ts-ignore
               mapRef.current.map_?.panTo(newAddress.coords)
+              // @ts-ignore
+              mapRef.current.map_?.setZoom(12)
             })
           }}
           placeholder='Search'
@@ -147,8 +175,11 @@ export default function Navbar({
           <div className='mr-3'>
             <DrawMapButton />
           </div>
-          <div>
+          <div className='mr-3'>
             <SignOutButton />
+          </div>
+          <div className=''>
+            <ThemeButton />
           </div>
         </div>
       </>

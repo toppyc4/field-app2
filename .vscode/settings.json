@@ -1,3 +1,6 @@
 {
-  "workbench.colorTheme": "New Moon Blue"
+  "workbench.colorTheme": "New Moon Blue",
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).?[\"'`]"]
+  ]
 }
